@@ -1,3 +1,14 @@
 # Dataset DDD (release dataset-v1). No subir el zip ni las imágenes.
 *.zip
 dataset/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Local / basura
+README.local.md
+_to_delete/
+
+# Corridas viejas en la raíz. Las de redes_neuronales/cnn/runs sí se versionan.
+/runs/
