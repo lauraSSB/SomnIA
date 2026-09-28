@@ -1,6 +1,7 @@
 # Dataset DDD (release dataset-v1). No subir el zip ni las imágenes.
 *.zip
 dataset/
+mixed_dataset/
 
 # Python
 __pycache__/

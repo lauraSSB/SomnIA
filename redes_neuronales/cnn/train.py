@@ -6,6 +6,8 @@ Hiperparámetros para experimentar:
     --l2                    regularización L2 en Conv/Dense (0 = apagada)
     --dropout               Dropout de la capa densa final
     --conv-dropout          Dropout al final de cada bloque convolucional
+    --obligatory            imágenes "obligatory_*" siempre en train (default: activado;
+                             usa --obligatory false para desactivarlo)
 
 Genera dentro de --out-dir:
     best_model.keras        -> mejores pesos según val_auc
@@ -27,7 +29,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-from data import build_datasets
+from data import _str2bool, build_datasets
 from evaluate import DEFAULT_THRESHOLDS, _plot_threshold_sweep, _sweep_thresholds
 from model import build_cnn
 
@@ -74,6 +76,7 @@ Learning rate inicial: {args.lr}
 Paciencia (early stop):{args.patience}
 Semilla:               {args.seed}
 Tope de imágenes:      {args.max_images if args.max_images else "todas"}
+Imágenes obligatorias: {"activadas (obligatory_* siempre en train)" if args.obligatory else "desactivadas"}
 
 Regularización L2:     {args.l2}
 Dropout denso final:   {args.dropout}
@@ -137,6 +140,13 @@ def main():
         help="Apaga el aumento de datos en train.",
     )
     parser.add_argument(
+        "--obligatory",
+        type=_str2bool,
+        default=True,
+        help="Si es true (default), las imágenes 'obligatory_*' siempre van a train, sin "
+        "importar --max-images. Usa --obligatory false para desactivarlo.",
+    )
+    parser.add_argument(
         "--l2",
         type=float,
         default=0.0,
@@ -172,6 +182,7 @@ def main():
         seed=args.seed,
         max_images=args.max_images,
         augment=not args.no_augment,
+        obligatory=args.obligatory,
     )
 
     # Guardamos el mapeo de clases para que evaluate.py sepa qué índice es cuál

@@ -12,6 +12,8 @@ Variables:
     channels       canales de la imagen                 (default: 1, escala de grises)
     batch_size     tamaño de batch                      (default: 32)
     augment        aumento solo en train                (default: True; apagar con augment=False o --no-augment)
+    obligatory     imágenes "obligatory_*" siempre en train, nunca en val/test, y nunca
+                   recortadas por --max-images (default: True; apagar con --obligatory false)
 """
 from __future__ import annotations
 
@@ -39,8 +41,28 @@ class SplitFiles:
     class_names: list
 
 
+def _str2bool(value) -> bool:
+    """Convierte 'true/false/1/0/yes/no' (cualquier mayúscula/minúscula) a bool.
+    Se usa en argparse para poder escribir --obligatory false en la terminal."""
+    if isinstance(value, bool):
+        return value
+    v = str(value).strip().lower()
+    if v in ("true", "1", "yes", "si", "sí"):
+        return True
+    if v in ("false", "0", "no"):
+        return False
+    raise argparse.ArgumentTypeError(f"Valor booleano inválido: {value!r} (usa true/false)")
+
+
+def _is_obligatory(path: pathlib.Path) -> bool:
+    """Identifica las imágenes marcadas como obligatorias por su nombre
+    (ej. 'obligatory_37.jpg'): siempre deben quedar en train."""
+    return path.stem.lower().startswith("obligatory")
+
+
 def _list_files_by_class(data_dir: pathlib.Path, class_dirs: list[str]) -> dict[str, list[pathlib.Path]]:
-    """Lista las imágenes de cada carpeta de clase. Falla si falta la carpeta o no hay archivos."""
+    """Lista las imágenes de cada carpeta de clase (.png/.jpg/.jpeg). Falla si falta la
+    carpeta o no hay archivos."""
     files_by_class = {}
     for cls in class_dirs:
         cls_dir = data_dir / cls
@@ -48,7 +70,9 @@ def _list_files_by_class(data_dir: pathlib.Path, class_dirs: list[str]) -> dict[
             raise FileNotFoundError(
                 f"No encontré la carpeta '{cls_dir}'. Revise la ruta de --data-dir."
             )
-        files = sorted(p for p in cls_dir.rglob("*.png"))
+        files = sorted(
+            p for pat in ("*.png", "*.jpg", "*.jpeg") for p in cls_dir.rglob(pat)
+        )
         if not files:
             raise FileNotFoundError(f"La carpeta '{cls_dir}' no tiene imágenes.")
         files_by_class[cls] = files
@@ -70,14 +94,25 @@ def _grouped_split(
     val_frac: float,
     test_frac: float,
     seed: int,
+    obligatory: bool = True,
 ) -> SplitFiles:
-    """Parte train/val/test por grupo de letra dentro de cada clase, no por imagen suelta."""
+    """Parte train/val/test por grupo de letra dentro de cada clase, no por imagen suelta.
+    Si obligatory=True, las imágenes 'obligatory_*' se separan ANTES de agrupar y se
+    agregan directo a train — nunca participan del sorteo de grupos, así que nunca
+    pueden caer en val o test."""
     rng = random.Random(seed)
     train, val, test = [], [], []
 
     for label_idx, cls in enumerate(class_names):
+        all_files = files_by_class[cls]
+        if obligatory:
+            oblig_files = [p for p in all_files if _is_obligatory(p)]
+            rest_files = [p for p in all_files if not _is_obligatory(p)]
+        else:
+            oblig_files, rest_files = [], all_files
+
         groups: dict[str, list[pathlib.Path]] = defaultdict(list)
-        for p in files_by_class[cls]:
+        for p in rest_files:
             groups[_group_key(p)].append(p)
 
         group_keys = list(groups.keys())
@@ -97,9 +132,13 @@ def _grouped_split(
         for key in test_keys:
             test += [(str(p), label_idx) for p in groups[key]]
 
+        # Las obligatorias no pasan por el sorteo de grupos: van directo a train.
+        train += [(str(p), label_idx) for p in oblig_files]
+
+        oblig_txt = f", +{len(oblig_files)} obligatorias -> train" if oblig_files else ""
         print(
             f"  clase '{cls}': {n_groups} grupos "
-            f"(train={len(train_keys)}, val={len(val_keys)}, test={len(test_keys)})"
+            f"(train={len(train_keys)}, val={len(val_keys)}, test={len(test_keys)}){oblig_txt}"
         )
 
     rng.shuffle(train)
@@ -148,14 +187,42 @@ def _cap_pairs(pairs: list, max_n: int, seed: int) -> list:
     return selected
 
 
+def _cap_train_pairs(pairs: list, max_n: int, seed: int) -> list:
+    """Igual que _cap_pairs, pero protege las imágenes obligatorias: nunca las recorta.
+    Si hay más obligatorias que el cupo de train (max_n), se quedan todas de todas
+    formas y el train termina siendo más grande de lo pedido (avisa por consola).
+    El resto del cupo se llena igual que antes (_cap_pairs, balanceado por clase)."""
+    oblig = [item for item in pairs if _is_obligatory(pathlib.Path(item[0]))]
+    rest = [item for item in pairs if not _is_obligatory(pathlib.Path(item[0]))]
+
+    rng = random.Random(seed)
+    if len(oblig) >= max_n:
+        if len(oblig) > max_n:
+            print(
+                f"Aviso: hay {len(oblig)} imágenes obligatorias, más que el cupo de train "
+                f"calculado ({max_n}) con --max-images; se incluyen TODAS de todas formas."
+            )
+        rng.shuffle(oblig)
+        return oblig
+
+    resto_cupo = max_n - len(oblig)
+    sampled_rest = _cap_pairs(rest, resto_cupo, seed)
+    combined = oblig + sampled_rest
+    rng.shuffle(combined)
+    return combined
+
+
 def _apply_max_images(
     split: SplitFiles,
     max_images: int,
     val_frac: float,
     test_frac: float,
     seed: int,
+    obligatory: bool = True,
 ) -> SplitFiles:
-    """Aplica el tope total de imágenes a train, val y test según val_frac y test_frac."""
+    """Aplica el tope total de imágenes a train, val y test según val_frac y test_frac.
+    Si obligatory=True, el recorte de train nunca descarta imágenes obligatorias
+    (ver _cap_train_pairs); val y test se recortan igual que siempre."""
     if max_images < 3:
         raise ValueError("--max-images debe ser al menos 3 (1 train + 1 val + 1 test).")
 
@@ -168,7 +235,10 @@ def _apply_max_images(
             f"val_frac={val_frac} y test_frac={test_frac}."
         )
 
-    split.train = _cap_pairs(split.train, n_train, seed)
+    if obligatory:
+        split.train = _cap_train_pairs(split.train, n_train, seed)
+    else:
+        split.train = _cap_pairs(split.train, n_train, seed)
     split.val = _cap_pairs(split.val, n_val, seed + 1)
     split.test = _cap_pairs(split.test, n_test, seed + 2)
     return split
@@ -233,16 +303,17 @@ def split_file_lists(
     class_drowsy: str = "Drowsy",
     class_awake: str = "Non Drowsy",
     max_images: int | None = None,
+    obligatory: bool = True,
     verbose: bool = True,
 ) -> SplitFiles:
     """Arma las listas (ruta, etiqueta) de train/val/test con el mismo split agrupado que build_datasets."""
     data_dir = pathlib.Path(data_dir)
     class_names = [class_awake, class_drowsy]
     files_by_class = _list_files_by_class(data_dir, class_names)
-    split = _grouped_split(files_by_class, class_names, val_frac, test_frac, seed)
+    split = _grouped_split(files_by_class, class_names, val_frac, test_frac, seed, obligatory=obligatory)
     total = sum(len(v) for v in files_by_class.values())
     if max_images is not None:
-        split = _apply_max_images(split, max_images, val_frac, test_frac, seed)
+        split = _apply_max_images(split, max_images, val_frac, test_frac, seed, obligatory=obligatory)
 
     if verbose:
         used = len(split.train) + len(split.val) + len(split.test)
@@ -272,9 +343,12 @@ def build_datasets(
     class_awake: str = "Non Drowsy",
     max_images: int | None = None,
     augment: bool = True,
+    obligatory: bool = True,
 ):
     """Construye train/val/test como tf.data.Dataset y la lista de class_names.
-    El split es por grupo de letra; max_images recorta el total; augment=False apaga el aumento en train."""
+    El split es por grupo de letra; max_images recorta el total; augment=False apaga el
+    aumento en train; obligatory=True (default) fuerza a que las imágenes 'obligatory_*'
+    siempre queden en train, sin importar --max-images ni el sorteo de grupos."""
     split = split_file_lists(
         data_dir=data_dir,
         val_frac=val_frac,
@@ -283,9 +357,11 @@ def build_datasets(
         class_drowsy=class_drowsy,
         class_awake=class_awake,
         max_images=max_images,
+        obligatory=obligatory,
         verbose=True,
     )
     print(f"Augmentation en train: {'on' if augment else 'off'}")
+    print(f"Imágenes obligatorias: {'activadas' if obligatory else 'desactivadas'}")
 
     train_ds = _to_tf_dataset(
         split.train, img_size, channels, batch_size, training=True, seed=seed, augment=augment
@@ -316,6 +392,13 @@ def _cli():
         action="store_true",
         help="Apaga el aumento de datos en train (val/test nunca se aumentan).",
     )
+    parser.add_argument(
+        "--obligatory",
+        type=_str2bool,
+        default=True,
+        help="Si es true (default), las imágenes 'obligatory_*' siempre van a train, sin "
+        "importar --max-images. Usa --obligatory false para desactivarlo.",
+    )
     args = parser.parse_args()
 
     train_ds, val_ds, test_ds, class_names = build_datasets(
@@ -327,6 +410,7 @@ def _cli():
         seed=args.seed,
         max_images=args.max_images,
         augment=not args.no_augment,
+        obligatory=args.obligatory,
     )
 
     for name, ds in [("train", train_ds), ("val", val_ds), ("test", test_ds)]:

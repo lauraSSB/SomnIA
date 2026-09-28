@@ -32,7 +32,7 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
-from data import build_datasets
+from data import _str2bool, build_datasets
 
 DEFAULT_THRESHOLDS = (0.05, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70)
 
@@ -96,6 +96,15 @@ def main():
         help="Mismo tope que en train.py si quieres evaluar el subset. "
         "Omite para medir el modelo sobre todo el test de esos grupos.",
     )
+    parser.add_argument(
+        "--obligatory",
+        type=_str2bool,
+        default=True,
+        help="Debe coincidir con el valor usado en train.py para esta corrida, para "
+        "reproducir exactamente el mismo split (las obligatorias nunca caen en test, "
+        "así que en la práctica esto no cambia el set de test, pero sí afecta qué "
+        "imágenes se recortan de train si --max-images está activo).",
+    )
     args = parser.parse_args()
 
     out_dir = pathlib.Path(args.out_dir)
@@ -109,6 +118,7 @@ def main():
         class_awake=args.class_awake,
         seed=args.seed,
         max_images=args.max_images,
+        obligatory=args.obligatory,
     )
 
     model = tf.keras.models.load_model(args.model_path)
