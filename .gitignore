@@ -2,14 +2,19 @@
 *.zip
 dataset/
 mixed_dataset/
+dataset_eyes/
+dataset_eyes_only/
 
 # Python
 __pycache__/
 *.py[cod]
+.venv_*
+.venv/
 
 # Local / basura
 README.local.md
 _to_delete/
+.DS_Store
 
 # Corridas viejas en la raíz. Las de redes_neuronales/cnn/runs sí se versionan.
 /runs/

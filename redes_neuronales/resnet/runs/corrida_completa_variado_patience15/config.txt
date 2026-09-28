@@ -1,0 +1,27 @@
+Configuración de la corrida
+============================
+Fecha:                2026-09-28 10:18
+Carpeta:              runs/corrida_completa_variado_patience15
+
+Arquitectura:          ResNet50 (ImageNet) + cabeza propia (transfer learning)
+Capas descongeladas:   últimas 25 capas del backbone
+Resolución:            224x224 (RGB)
+Batch size:            32
+Épocas (máximo):       40
+Learning rate inicial: 0.0001
+Paciencia (early stop):15
+Semilla:               42
+Tope de imágenes:      todas
+Imágenes obligatorias: activadas (obligatory_* siempre en train)
+
+Regularización L2:     0.0
+Dropout cabeza densa:  0.5
+Label smoothing:       0.05
+Data augmentation:     activada
+
+Clases (índice -> nombre): [(0, 'Non Drowsy'), (1, 'Drowsy')]
+Criterio de checkpoint:    val_auc (mode="max")
+
+Nota: split agrupado por persona (no aleatorio por archivo), igual que en la
+CNN propia y en MobileNetV2 — evita la fuga de datos de repartir fotogramas
+de la misma persona/video entre train y test.
