@@ -1,0 +1,23 @@
+Configuración de la corrida
+============================
+Fecha:                2026-09-28 05:05
+Carpeta:              runs\prueba_9000_obligatory_baseline
+
+Arquitectura:          build_cnn (adaptación de Akhmedov et al., 2025)
+Resolución:            227x227 (escala de grises)
+Batch size:            32
+Épocas (máximo):       40
+Learning rate inicial: 0.001
+Paciencia (early stop):8
+Semilla:               42
+Tope de imágenes:      9000
+Imágenes obligatorias: activadas (obligatory_* siempre en train)
+
+Regularización L2:     0.0
+Dropout denso final:   0.5
+Dropout por bloque:    0.25
+Label smoothing:       0.05
+Data augmentation:     activada
+
+Clases (índice -> nombre): [(0, 'Non Drowsy'), (1, 'Drowsy')]
+Criterio de checkpoint:    val_auc (mode="max")
