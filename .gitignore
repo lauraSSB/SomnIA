@@ -4,6 +4,7 @@ dataset/
 mixed_dataset/
 dataset_eyes/
 dataset_eyes_only/
+test_final_dataset/
 
 # Python
 __pycache__/
