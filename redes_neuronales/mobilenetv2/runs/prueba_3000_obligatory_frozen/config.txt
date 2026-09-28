@@ -1,0 +1,28 @@
+Configuración de la corrida
+============================
+Fecha:                2026-09-27 22:15
+Carpeta:              runs\prueba_3000_obligatory_frozen
+
+Arquitectura:          MobileNetV2 (ImageNet) + cabeza propia (transfer learning)
+Réplica de:            Kaggle - Esraa Meslam - driver-drowsiness-detection-cnn-mobilenetv2
+Capas descongeladas:   últimas 0 capas del backbone
+Resolución:            224x224 (RGB)
+Batch size:            32
+Épocas (máximo):       40
+Learning rate inicial: 0.0001
+Paciencia (early stop):8
+Semilla:               42
+Tope de imágenes:      3000
+Imágenes obligatorias: activadas (obligatory_* siempre en train)
+
+Regularización L2:     0.0
+Dropout cabeza densa:  0.5
+Label smoothing:       0.05
+Data augmentation:     activada
+
+Clases (índice -> nombre): [(0, 'Non Drowsy'), (1, 'Drowsy')]
+Criterio de checkpoint:    val_auc (mode="max")
+
+Nota: split agrupado por persona (no aleatorio por archivo, a diferencia del
+notebook de referencia) — no esperar el ~99.9% de accuracy que reporta ese
+notebook, ese número está inflado por fuga de datos entre train y test.
