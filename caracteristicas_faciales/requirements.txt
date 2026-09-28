@@ -1,0 +1,6 @@
+torch>=2.4
+torchvision>=0.19
+transformers>=4.45
+mediapipe==0.10.35      # la 1.0.x falla en macOS reciente (error de Metal)
+opencv-python>=4.10
+numpy>=1.26
