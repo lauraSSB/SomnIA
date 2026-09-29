@@ -1,0 +1,18 @@
+{
+  "threshold": 0.5,
+  "accuracy": 0.7125925925925926,
+  "precision": 0.6905710491367862,
+  "recall": 0.7703703703703704,
+  "f1": 0.7282913165266106,
+  "specificity": 0.6548148148148148,
+  "balanced_accuracy": 0.7125925925925927,
+  "tn": 442,
+  "fp": 233,
+  "fn": 155,
+  "tp": 520,
+  "threshold_source": "fijo (--threshold)",
+  "roc_auc": 0.749684499314129,
+  "val_auc": 0.8175385459533607,
+  "n_test": 1350,
+  "epochs_run": 18
+}

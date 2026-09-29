@@ -1,0 +1,18 @@
+{
+  "threshold": 0.3,
+  "accuracy": 0.5355555555555556,
+  "precision": 0.5212389380530974,
+  "recall": 0.8725925925925926,
+  "f1": 0.6526315789473685,
+  "specificity": 0.1985185185185185,
+  "balanced_accuracy": 0.5355555555555556,
+  "tn": 134,
+  "fp": 541,
+  "fn": 86,
+  "tp": 589,
+  "threshold_source": "mejor balanced_accuracy en validación",
+  "roc_auc": 0.749684499314129,
+  "val_auc": 0.8175385459533607,
+  "n_test": 1350,
+  "epochs_run": 18
+}

@@ -6,11 +6,10 @@ Qué hace:
   1. Split determinístico por grupo de letra (seed=42, misma lógica que
      cnn/data.py y mobilenetv2/data.py); las imágenes "obligatory_*" siempre
      van a train.
-  2. Por cada imagen, con mediapipe Face Mesh, calcula las 9 features finales:
-       left_ear, right_ear, mar, ear_diff,
-       left_brow_eye, right_brow_eye, head_pitch, head_yaw, head_roll
-     (avg_ear y moe ya NO se extraen: son derivadas puras de left/right_ear y
-     mar y no aportan información nueva).
+  2. Por cada imagen, con mediapipe Face Mesh, calcula las 6 features finales:
+       left_ear, right_ear, mar, ear_diff, left_brow_eye, right_brow_eye
+     (avg_ear y moe no se extraen: son derivadas puras de left/right_ear y mar
+     y no aportan información nueva).
   3. Si NO pasas --max-images, usa TODAS las imágenes de --data-dir.
 
 Entorno (mediapipe, sin TensorFlow):
@@ -25,8 +24,6 @@ Uso:
         --out-csv landmarks_features.csv
 
 PASO 2: limpiar outliers con clean_features.py -> landmarks_features_clean.csv
-(la pose por solvePnP da ángulos imposibles cuando el mentón/boca están
-tapados, p. ej. manos en la barbilla).
 """
 
 from __future__ import annotations
@@ -209,26 +206,9 @@ LEFT_LID_TOP = 386
 RIGHT_BROW = 105
 RIGHT_LID_TOP = 159
 
-POSE_LANDMARKS = {
-    "nose_tip": 1,
-    "chin": 152,
-    "left_eye_left_corner": 263,
-    "right_eye_right_corner": 33,
-    "left_mouth_corner": 291,
-    "right_mouth_corner": 61,
-}
-MODEL_3D = np.array([
-    (0.0, 0.0, 0.0),
-    (0.0, -330.0, -65.0),
-    (-225.0, 170.0, -135.0),
-    (225.0, 170.0, -135.0),
-    (-150.0, -150.0, -125.0),
-    (150.0, -150.0, -125.0),
-], dtype=np.float64)
-
 FEATURE_NAMES = [
     "left_ear", "right_ear", "mar", "ear_diff",
-    "left_brow_eye", "right_brow_eye", "head_pitch", "head_yaw", "head_roll",
+    "left_brow_eye", "right_brow_eye",
 ]
 
 
@@ -239,20 +219,6 @@ def _dist(a, b):
 def _ear(pts):
     p1, p2, p3, p4, p5, p6 = pts
     return (_dist(p2, p6) + _dist(p3, p5)) / (2.0 * _dist(p1, p4))
-
-
-def _rotation_matrix_to_euler(R):
-    sy = np.sqrt(R[0, 0] ** 2 + R[1, 0] ** 2)
-    singular = sy < 1e-6
-    if not singular:
-        pitch = np.arctan2(R[2, 1], R[2, 2])
-        yaw = np.arctan2(-R[2, 0], sy)
-        roll = np.arctan2(R[1, 0], R[0, 0])
-    else:
-        pitch = np.arctan2(-R[1, 2], R[1, 1])
-        yaw = np.arctan2(-R[2, 0], sy)
-        roll = 0.0
-    return np.degrees(pitch), np.degrees(yaw), np.degrees(roll)
 
 
 def extract_features(landmarks, img_w, img_h) -> dict:
@@ -271,26 +237,10 @@ def extract_features(landmarks, img_w, img_h) -> dict:
     left_brow_eye = _dist(pt(LEFT_BROW), pt(LEFT_LID_TOP)) / interocular
     right_brow_eye = _dist(pt(RIGHT_BROW), pt(RIGHT_LID_TOP)) / interocular
 
-    image_points = np.array([pt(POSE_LANDMARKS[k]) for k in [
-        "nose_tip", "chin", "left_eye_left_corner", "right_eye_right_corner",
-        "left_mouth_corner", "right_mouth_corner",
-    ]], dtype=np.float64)
-    focal_length = img_w
-    center = (img_w / 2.0, img_h / 2.0)
-    camera_matrix = np.array([[focal_length, 0, center[0]], [0, focal_length, center[1]], [0, 0, 1]], dtype=np.float64)
-    dist_coeffs = np.zeros((4, 1))
-    ok, rvec, tvec = cv2.solvePnP(MODEL_3D, image_points, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_ITERATIVE)
-    if ok:
-        R, _ = cv2.Rodrigues(rvec)
-        pitch, yaw, roll = _rotation_matrix_to_euler(R)
-    else:
-        pitch, yaw, roll = 0.0, 0.0, 0.0
-
     return {
         "left_ear": left_ear, "right_ear": right_ear,
         "mar": mar, "ear_diff": ear_diff,
         "left_brow_eye": left_brow_eye, "right_brow_eye": right_brow_eye,
-        "head_pitch": pitch, "head_yaw": yaw, "head_roll": roll,
     }
 
 
@@ -311,7 +261,7 @@ def process_image(path: pathlib.Path, face_mesh):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Extrae 9 features geométricas (EAR/MAR/pose) para SomnIA")
+    parser = argparse.ArgumentParser(description="Extrae 6 features geométricas (EAR/MAR/cejas) para SomnIA")
     parser.add_argument("--data-dir", required=True, help='p.ej. "../../mixed_dataset/Driver Drowsiness Dataset (DDD)"')
     parser.add_argument("--class-drowsy", default="Drowsy")
     parser.add_argument("--class-awake", default="Non Drowsy")

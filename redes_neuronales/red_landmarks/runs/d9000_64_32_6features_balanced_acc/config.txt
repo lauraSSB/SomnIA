@@ -1,0 +1,62 @@
+Configuración de la corrida
+===========================
+Fecha: 2026-09-28 21:32:45
+Comando: python train_red_landmarks.py --mode train --hidden-units 64,32 --lr 0.001 --max-images 9000 --features left_ear,right_ear,mar,ear_diff,left_brow_eye,right_brow_eye --out-dir runs/d9000_64_32_6features_balanced_acc --threshold-metric balanced_accuracy
+
+[general]
+  mode    : train
+  csv     : data_extraction/landmarks_features_clean.csv
+  out_dir : runs/d9000_64_32_6features_balanced_acc
+  seed    : 42
+  verbose : 2
+
+[datos]
+  features    : left_ear,right_ear,mar,ear_diff,left_brow_eye,right_brow_eye
+  label_col   : label
+  path_col    : path
+  class_names : Non Drowsy,Drowsy
+  normalize   : zscore
+  std_eps     : 1e-06
+
+[división por persona]
+  val_frac          : 0.15
+  test_frac         : 0.15
+  split_seed        : 42
+  max_images        : 9000
+  group_regex       : ^([a-zA-Z]+)\d+\.\w+$
+  obligatory_prefix : obligatory
+
+[arquitectura]
+  hidden_units : 64,32
+  activation   : relu
+  dropout      : 0.1
+  l2           : 0.0
+
+[entrenamiento]
+  optimizer          : adam
+  lr                 : 0.001
+  batch_size         : 32
+  epochs             : 80
+  monitor            : val_auc
+  monitor_mode       : max
+  patience           : 10
+  reduce_lr_factor   : 0.5
+  reduce_lr_patience : 4
+  min_lr             : 1e-06
+
+[evaluación]
+  threshold        : None
+  threshold_metric : balanced_accuracy
+  thresholds       : 0.05,0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7
+
+[modo grid]
+  grid_lrs      : 0.01,0.001,0.0001
+  grid_dropouts : 0.1,0.3,0.5
+  grid_l2s      : 0.0
+
+[modo cv]
+  k                 : 5
+  cv_inner_val_frac : 0.2
+
+[gráficas]
+  dpi : 150
