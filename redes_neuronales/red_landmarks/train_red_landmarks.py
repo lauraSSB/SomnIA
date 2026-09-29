@@ -4,9 +4,12 @@ solo archivo, con TODA la configuración como parámetro de línea de comandos.
 
 Dos modos (--mode):
 
-  train  Entrena UNA red. Guarda modelo, media/std de normalización,
-         historial, barrido de umbrales, métricas, reporte, matriz de
-         confusión, ROC y qué personas cayeron en cada split.
+  train  Entrena la red --repeats veces (semillas seed, seed+1, ...) con el
+         mismo split. Guarda el modelo con mejor AUC de validación
+         (best_model.keras) y sus métricas, reporte, matriz de confusión,
+         ROC, historial y barrido de umbrales; además metrics_repeats.json
+         (media ± desv. de todas las semillas) y resumen_modelo.png:
+         (a) barras entrenamiento vs prueba, (b) ROC, (c) matriz de confusión.
 
   grid   Experimento sistemático: learning rate x neuronas x dropout
          (--grid-lrs, --grid-hidden, --grid-dropouts), cada combinación
@@ -61,7 +64,7 @@ import numpy as np
 import tensorflow as tf
 from sklearn.metrics import (
     ConfusionMatrixDisplay, RocCurveDisplay, balanced_accuracy_score, classification_report,
-    confusion_matrix, f1_score, precision_score, recall_score, roc_auc_score,
+    confusion_matrix, f1_score, precision_score, recall_score, roc_auc_score, roc_curve,
 )
 
 
@@ -95,6 +98,8 @@ def parse_args():
     g.add_argument("--csv", default="data_extraction/landmarks_features_clean.csv")
     g.add_argument("--out-dir", default="runs/prueba")
     g.add_argument("--seed", type=int, default=42)
+    g.add_argument("--repeats", type=int, default=5,
+                   help="modo train: entrenamientos con semillas seed..seed+repeats-1 (media ± desv.)")
     g.add_argument("--verbose", type=int, default=2, choices=[0, 1, 2], help="verbosidad de model.fit")
 
     g = ap.add_argument_group("datos")
@@ -385,6 +390,52 @@ def save_csv(rows, path):
 # Modos
 # ============================================================
 
+BAR_METRICS = [("accuracy", "Accuracy"), ("precision", "Precisión"), ("recall", "Sensibilidad\nDrowsy"),
+               ("specificity", "Sensibilidad\nalerta"), ("f1", "F1"), ("roc_auc", "AUC-ROC")]
+
+
+def plot_summary(rep_tr, rep_te, y_te, p_te, y_tr, p_tr, thr, args, out_path):
+    """(a) barras media ± desv. entrenamiento vs prueba, (b) ROC del mejor modelo, (c) matriz de confusión."""
+    c_tr, c_te = "#9ecae1", "#3182bd"
+    fig, axes = plt.subplots(1, 3, figsize=(19, 5.2), gridspec_kw={"width_ratios": [2.3, 1, 1]})
+
+    ax = axes[0]
+    x = np.arange(len(BAR_METRICS)); w = 0.38
+    for off, reps, col, lab in [(-w / 2, rep_tr, c_tr, "Entrenamiento"), (w / 2, rep_te, c_te, "Prueba (sujetos no vistos)")]:
+        m = [100 * np.mean([r[k] for r in reps]) for k, _ in BAR_METRICS]
+        e = [100 * np.std([r[k] for r in reps]) for k, _ in BAR_METRICS]
+        bars = ax.bar(x + off, m, w, yerr=e, capsize=4, color=col, label=lab, error_kw={"elinewidth": 1.2})
+        for b, v, err in zip(bars, m, e):
+            ax.text(b.get_x() + b.get_width() / 2, v + err + 1.5, f"{v:.1f}", ha="center", fontsize=9)
+    ax.axhline(50, color="gray", linestyle=":", linewidth=1)
+    ax.set_xticks(x, [n for _, n in BAR_METRICS]); ax.set_ylim(0, 105); ax.set_ylabel("%")
+    ax.set_title(f"(a) Métricas (media ± desv., {len(rep_te)} semillas, umbral {thr:.2f})")
+    ax.legend(loc="lower right"); ax.spines[["top", "right"]].set_visible(False)
+
+    ax = axes[1]
+    for yy, pp, col, lab in [(y_tr, p_tr, c_tr, "Entrenamiento"), (y_te, p_te, c_te, "Prueba")]:
+        fpr, tpr, _ = roc_curve(yy, pp)
+        ax.plot(fpr, tpr, color=col, linewidth=2, label=f"{lab} (AUC = {roc_auc_score(yy, pp):.3f})")
+    ax.plot([0, 1], [0, 1], color="gray", linestyle=":", linewidth=1)
+    ax.set_xlabel("Tasa de falsos positivos"); ax.set_ylabel("Tasa de verdaderos positivos")
+    ax.set_title("(b) Curva ROC (mejor modelo)"); ax.legend(loc="lower right"); ax.set_aspect("equal")
+    ax.spines[["top", "right"]].set_visible(False)
+
+    ax = axes[2]
+    cm = confusion_matrix(y_te, (p_te >= thr).astype(int), labels=[0, 1])
+    ax.imshow(cm, cmap="Blues")
+    for i in range(2):
+        for j in range(2):
+            ax.text(j, i, f"{cm[i, j]}\n({100 * cm[i, j] / cm[i].sum():.1f} %)", ha="center", va="center",
+                    color="white" if cm[i, j] > cm.max() / 2 else "black", fontsize=11)
+    ax.set_xticks([0, 1], args.class_names); ax.set_yticks([0, 1], args.class_names)
+    ax.set_xlabel("Predicción"); ax.set_ylabel("Real")
+    ax.set_title(f"(c) Matriz de confusión en prueba (umbral {thr:.2f})")
+
+    fig.suptitle("Red de landmarks: evaluación del mejor modelo", fontsize=14)
+    fig.tight_layout(); fig.savefig(out_path, dpi=args.dpi, bbox_inches="tight"); plt.close(fig)
+
+
 def run_train(args, rows, out_dir):
     split, info = person_split(rows, args)
     save_json(info, out_dir / "split_personas.json")
@@ -395,37 +446,61 @@ def run_train(args, rows, out_dir):
     np.save(out_dir / "feature_std.npy", std)
     X_tr, X_va, X_te = (X_tr - mean) / std, (X_va - mean) / std, (X_te - mean) / std
 
-    extra = [
-        tf.keras.callbacks.ModelCheckpoint(str(out_dir / "best_model.keras"), monitor=args.monitor,
-                                           mode=args.monitor_mode, save_best_only=True),
-        tf.keras.callbacks.CSVLogger(str(out_dir / "history.csv")),
-    ]
-    model, history = train_model(X_tr, y_tr, X_va, y_va, args, args.lr, args.dropout, args.l2,
-                                 args.seed, extra, verbose=args.verbose)
+    # --- varias semillas: se guarda la de mejor AUC de validación ---
+    runs, best = [], None
+    for k in range(args.repeats):
+        seed = args.seed + k
+        ckpt = out_dir / f"_seed{seed}.keras"
+        cb = [tf.keras.callbacks.ModelCheckpoint(str(ckpt), monitor=args.monitor, mode=args.monitor_mode,
+                                                 save_best_only=True)]
+        _, history = train_model(X_tr, y_tr, X_va, y_va, args, args.lr, args.dropout, args.l2,
+                                 seed, cb, verbose=args.verbose)
+        model = tf.keras.models.load_model(ckpt)
+        p_tr, p_va, p_te = (model.predict(X, verbose=0).ravel() for X in (X_tr, X_va, X_te))
+        _, best_va = sweep(y_va, p_va, args.thresholds, args.threshold_metric)
+        thr = args.threshold if args.threshold is not None else best_va["threshold"]
+        run = {"seed": seed, "threshold": thr, "epochs": len(history.history["loss"]),
+               "val_auc": float(roc_auc_score(y_va, p_va)),
+               "train": {**metrics_at_threshold(y_tr, p_tr, thr), "roc_auc": float(roc_auc_score(y_tr, p_tr))},
+               "test": {**metrics_at_threshold(y_te, p_te, thr), "roc_auc": float(roc_auc_score(y_te, p_te))}}
+        print(f"[semilla {seed}] AUC train={run['train']['roc_auc']:.3f} val={run['val_auc']:.3f} "
+              f"test={run['test']['roc_auc']:.3f} | umbral {thr:.2f} bal_acc test={run['test']['balanced_accuracy']:.3f}")
+        runs.append(run)
+        if best is None or run["val_auc"] > best[0]["val_auc"]:
+            if best is not None:
+                best[1].unlink(missing_ok=True)
+            best = (run, ckpt, history.history, (p_tr, p_va, p_te), model)
+        else:
+            ckpt.unlink(missing_ok=True)
+
+    run, ckpt, hist, (p_tr, p_va, y_prob), model = best
+    ckpt.replace(out_dir / "best_model.keras")
     model.summary()
-    plot_history(history.history, out_dir / "history.png", args.dpi)
+    save_csv([{"epoch": i, **{k: float(v[i]) for k, v in hist.items()}} for i in range(len(hist["loss"]))],
+             out_dir / "history.csv")
+    plot_history(hist, out_dir / "history.png", args.dpi)
 
-    # umbral: se elige en VALIDACIÓN (o se usa el fijo de --threshold) y se aplica tal cual a test
-    p_va = model.predict(X_va, verbose=0).ravel()
-    sweep_va, best_va = sweep(y_va, p_va, args.thresholds, args.threshold_metric)
-    thr = args.threshold if args.threshold is not None else best_va["threshold"]
+    keys = ["accuracy", "precision", "recall", "specificity", "balanced_accuracy", "f1", "roc_auc"]
+    agg = {part: {k: {"mean": float(np.mean([r[part][k] for r in runs])),
+                      "std": float(np.std([r[part][k] for r in runs]))} for k in keys}
+           for part in ("train", "test")}
+    save_json({"repeats": args.repeats, "best_seed": run["seed"], "media_desv": agg, "corridas": runs},
+              out_dir / "metrics_repeats.json")
+
+    thr = run["threshold"]
     thr_src = "fijo (--threshold)" if args.threshold is not None else f"mejor {args.threshold_metric} en validación"
-
-    y_prob = model.predict(X_te, verbose=0).ravel()
-    roc_auc = float(roc_auc_score(y_te, y_prob))
+    sweep_va, _ = sweep(y_va, p_va, args.thresholds, args.threshold_metric)
     sweep_te, _ = sweep(y_te, y_prob, args.thresholds)
-    save_json({"threshold_used": thr, "threshold_source": thr_src, "val_auc": float(roc_auc_score(y_va, p_va)),
-               "val_rows": sweep_va, "test_rows_solo_informativo": sweep_te},
-              out_dir / "threshold_sweep.json")
+    save_json({"threshold_used": thr, "threshold_source": thr_src, "val_auc": run["val_auc"],
+               "val_rows": sweep_va, "test_rows_solo_informativo": sweep_te}, out_dir / "threshold_sweep.json")
     plot_sweep(sweep_va, out_dir / "threshold_sweep_val.png", args.dpi, thr, "Validación vs umbral")
     plot_sweep(sweep_te, out_dir / "threshold_sweep_test.png", args.dpi, thr, "Test vs umbral (solo informativo)")
 
     y_pred = (y_prob >= thr).astype(int)
     report = classification_report(y_te, y_pred, target_names=args.class_names, digits=4, zero_division=0)
     (out_dir / "classification_report.txt").write_text(report, encoding="utf-8")
-    metrics = {**metrics_at_threshold(y_te, y_prob, thr), "threshold_source": thr_src, "roc_auc": roc_auc,
-               "val_auc": float(roc_auc_score(y_va, p_va)), "n_test": len(y_te),
-               "epochs_run": len(history.history["loss"])}
+    metrics = {**run["test"], "threshold_source": thr_src, "val_auc": run["val_auc"], "seed": run["seed"],
+               "n_test": len(y_te), "epochs_run": run["epochs"]}
     save_json(metrics, out_dir / "metrics.json")
 
     fig, ax = plt.subplots(figsize=(5, 5))
@@ -439,11 +514,14 @@ def run_train(args, rows, out_dir):
     ax.set_title("Curva ROC")
     fig.tight_layout(); fig.savefig(out_dir / "roc_curve.png", dpi=args.dpi); plt.close(fig)
 
+    plot_summary([r["train"] for r in runs], [r["test"] for r in runs], y_te, y_prob, y_tr, p_tr, thr, args,
+                 out_dir / "resumen_modelo.png")
+
     print(report)
-    print(f"Val ROC-AUC={metrics['val_auc']:.4f} | Test ROC-AUC={roc_auc:.4f}")
-    print(f"Umbral {thr:.2f} ({thr_src}) en test: acc={metrics['accuracy']:.3f} prec={metrics['precision']:.3f} "
-          f"recall={metrics['recall']:.3f} especificidad={metrics['specificity']:.3f} "
-          f"bal_acc={metrics['balanced_accuracy']:.3f} f1={metrics['f1']:.3f}")
+    print(f"Mejor semilla {run['seed']}: Val ROC-AUC={run['val_auc']:.4f} | Test ROC-AUC={run['test']['roc_auc']:.4f}")
+    t = agg["test"]
+    print(f"Prueba, media ± desv. de {args.repeats} semillas (umbral {thr:.2f}): "
+          + " ".join(f"{k}={t[k]['mean']:.3f}±{t[k]['std']:.3f}" for k in keys))
 
 
 def run_grid(args, rows, out_dir):
