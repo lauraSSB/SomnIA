@@ -1,38 +1,32 @@
 """
-extract_features_full.py — TODO EN UN SOLO ARCHIVO: split determinístico +
-las 11 features geométricas + extracción, sin depender de split_utils.py ni
-de feature_lib.py.
+extract_features.py — PASO 1 de 2: extrae las features geométricas de cada
+imagen y las guarda en landmarks_features.csv (SIN filtrar).
 
-Qué hace (igual que antes, solo que ya no está repartido en 3 archivos):
-
-  1. Split determinístico por grupo de letra (mismo seed=42, misma lógica
-     que cnn/data.py, mobilenetv2/data.py y extract_landmarks.py) -- las
-     imágenes "obligatory_*" siempre van a train.
-  2. Por cada imagen, con mediapipe Face Mesh, calcula 11 features:
-       left_ear, right_ear, avg_ear, mar, moe, ear_diff,
+Qué hace:
+  1. Split determinístico por grupo de letra (seed=42, misma lógica que
+     cnn/data.py y mobilenetv2/data.py); las imágenes "obligatory_*" siempre
+     van a train.
+  2. Por cada imagen, con mediapipe Face Mesh, calcula las 9 features finales:
+       left_ear, right_ear, mar, ear_diff,
        left_brow_eye, right_brow_eye, head_pitch, head_yaw, head_roll
-  3. Si NO pasas --max-images, usa TODAS las imágenes de --data-dir (pensado
-     para correr sobre mixed_dataset completo).
+     (avg_ear y moe ya NO se extraen: son derivadas puras de left/right_ear y
+     mar y no aportan información nueva).
+  3. Si NO pasas --max-images, usa TODAS las imágenes de --data-dir.
 
-Entorno: el mismo venv de mediapipe de siempre (sin TensorFlow):
+Entorno (mediapipe, sin TensorFlow):
 
     python -m venv venv_landmarks
     venv_landmarks\\Scripts\\pip install mediapipe==0.10.9 opencv-python-headless numpy
 
-Uso (TODO mixed_dataset, con imágenes obligatorias forzadas a train):
+Uso:
 
-    venv_landmarks\\Scripts\\python extract_features_full.py ^
-        --data-dir "../../mixed_dataset/Driver Drowsiness Dataset (DDD)" ^
-        --obligatory true ^
-        --out-csv runs/prueba_full_11features/landmarks_features_v2.csv
+    venv_landmarks\\Scripts\\python extract_features.py ^
+        --data-dir "../../../mixed_dataset/Driver Drowsiness Dataset (DDD)" ^
+        --out-csv landmarks_features.csv
 
-Si en cambio quieres un tope (como antes con 3000/9000), agrega
---max-images N.
-
-AVISO: la pose de cabeza (head_pitch/yaw/roll) se calcula con solvePnP; en
-caras casi de frente a veces da una solución inestable (ángulos absurdos,
-tipo ±179°) -- revisa esas columnas por valores fuera de rango (~±90°)
-antes de usarlas para entrenar.
+PASO 2: limpiar outliers con clean_features.py -> landmarks_features_clean.csv
+(la pose por solvePnP da ángulos imposibles cuando el mentón/boca están
+tapados, p. ej. manos en la barbilla).
 """
 
 from __future__ import annotations
@@ -53,7 +47,7 @@ mp_face_mesh = mp.solutions.face_mesh
 
 
 # ============================================================
-# 1) SPLIT determinístico (copiado de split_utils.py / cnn/data.py)
+# 1) SPLIT determinístico (misma lógica que cnn/data.py)
 # ============================================================
 
 _GROUP_RE = re.compile(r"^([a-zA-Z]+)\d+\.\w+$")
@@ -200,7 +194,7 @@ def _apply_max_images(split, max_images, val_frac, test_frac, seed, obligatory=T
 
 
 # ============================================================
-# 2) FEATURES geométricas (copiado de feature_lib.py, ya con el fix de cejas)
+# 2) FEATURES geométricas (con el fix de cejas: LEFT_BROW=334, RIGHT_BROW=105)
 # ============================================================
 
 LEFT_EYE = [362, 385, 387, 263, 373, 380]
@@ -233,7 +227,7 @@ MODEL_3D = np.array([
 ], dtype=np.float64)
 
 FEATURE_NAMES = [
-    "left_ear", "right_ear", "avg_ear", "mar", "moe", "ear_diff",
+    "left_ear", "right_ear", "mar", "ear_diff",
     "left_brow_eye", "right_brow_eye", "head_pitch", "head_yaw", "head_roll",
 ]
 
@@ -269,9 +263,7 @@ def extract_features(landmarks, img_w, img_h) -> dict:
     right_pts = [pt(i) for i in RIGHT_EYE]
     left_ear = _ear(left_pts)
     right_ear = _ear(right_pts)
-    avg_ear = (left_ear + right_ear) / 2.0
     mar = _dist(pt(MOUTH_VERT[0]), pt(MOUTH_VERT[1])) / _dist(pt(MOUTH_HORIZ[0]), pt(MOUTH_HORIZ[1]))
-    moe = mar / avg_ear if avg_ear > 1e-6 else 0.0
     ear_diff = abs(left_ear - right_ear)
 
     interocular = _dist(pt(LEFT_EYE[3]), pt(RIGHT_EYE[0]))
@@ -295,8 +287,8 @@ def extract_features(landmarks, img_w, img_h) -> dict:
         pitch, yaw, roll = 0.0, 0.0, 0.0
 
     return {
-        "left_ear": left_ear, "right_ear": right_ear, "avg_ear": avg_ear,
-        "mar": mar, "moe": moe, "ear_diff": ear_diff,
+        "left_ear": left_ear, "right_ear": right_ear,
+        "mar": mar, "ear_diff": ear_diff,
         "left_brow_eye": left_brow_eye, "right_brow_eye": right_brow_eye,
         "head_pitch": pitch, "head_yaw": yaw, "head_roll": roll,
     }
@@ -319,7 +311,7 @@ def process_image(path: pathlib.Path, face_mesh):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Extrae 11 features geométricas (EAR/MAR/pose) para SomnIA")
+    parser = argparse.ArgumentParser(description="Extrae 9 features geométricas (EAR/MAR/pose) para SomnIA")
     parser.add_argument("--data-dir", required=True, help='p.ej. "../../mixed_dataset/Driver Drowsiness Dataset (DDD)"')
     parser.add_argument("--class-drowsy", default="Drowsy")
     parser.add_argument("--class-awake", default="Non Drowsy")
@@ -328,7 +320,7 @@ def main():
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-images", type=int, default=None, help="si se omite, usa TODAS las imágenes")
     parser.add_argument("--obligatory", type=_str2bool, default=True)
-    parser.add_argument("--out-csv", default="runs/prueba_full_11features/landmarks_features_v2.csv")
+    parser.add_argument("--out-csv", default="landmarks_features.csv")
     args = parser.parse_args()
 
     data_dir = pathlib.Path(args.data_dir)
