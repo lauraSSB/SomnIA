@@ -12,3 +12,8 @@ No usa una red entrenada: son características geométricas.
 ```bash
 python contorno_boca.py foto.jpg --salida foto_boca.jpg
 ```
+
+## Pesos
+`pesos/face_landmarker.task` (3,6 MB) es el modelo preentrenado de **MediaPipe Face Landmarker** (Google), que detecta los 478 puntos faciales y los blendshapes (como `jawOpen`) usados por este módulo. La boca no tiene una red entrenada propia: el MAR, la distancia entre labios y la detección de bostezos se calculan geométricamente a partir de esos puntos.
+
+Fuente oficial: https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
