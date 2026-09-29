@@ -5,6 +5,8 @@ mixed_dataset/
 dataset_eyes/
 dataset_eyes_only/
 test_final_dataset/
+venv_landmarks/
+Claude outputs/
 
 # Python
 __pycache__/

@@ -7,7 +7,7 @@ Cada módulo está en **su propia carpeta**, con su README:
 ```
 caracteristicas_faciales/
 ├── ojos/          region_ojos.py      + pesos/ (VGG19 + Attention y ViT-B/16)
-├── boca/          contorno_boca.py
+├── boca/          contorno_boca.py    + pesos/ (VGG19 + Attention y ViT-B/16 de apertura de la boca)
 ├── pose_cabeza/   pose_cabeza.py
 ├── mirada/        direccion_mirada.py
 └── requirements.txt
@@ -16,7 +16,7 @@ caracteristicas_faciales/
 | Script | Qué hace | ¿Modelo entrenado? |
 |---|---|---|
 | `ojos/region_ojos.py` | Localiza los ojos, calcula **EAR** y **eyeBlink**, recorta cada ojo y estima su **grado de cierre** (0 = abierto, 1 = cerrado) | ✅ VGG19 + Attention y ViT-B/16 (pesos en `ojos/pesos/`) |
-| `boca/contorno_boca.py` | Localiza la boca y calcula **MAR**, **distancia entre labios** y **jawOpen**; detecta **bostezos**; recorta la boca | ❌ Características geométricas |
+| `boca/contorno_boca.py` | Localiza la boca y calcula **MAR**, **distancia entre labios** y **jawOpen**; detecta **bostezos**; recorta la boca | ✅ VGG19 + Attention y ViT-B/16 (apertura, en `boca/pesos/`) + geometría |
 | `pose_cabeza/pose_cabeza.py` | Estima **pitch** (+ = cabeza hacia abajo), **yaw** (+ = girada a la derecha de la imagen) y **roll** (+ = ladeada en sentido horario); marca **cabeceos** | ❌ Matriz 3D de MediaPipe |
 | `mirada/direccion_mirada.py` | Posición del **iris** dentro de cada ojo + blendshapes `eyeLook…` → mirada horizontal/vertical y categoría (centro, izquierda, derecha, arriba, abajo) | ❌ Puntos del iris + blendshapes |
 

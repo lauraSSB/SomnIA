@@ -1,3 +1,5 @@
-*/pesos/face_landmarker.task
 pesos/face_landmarker.task
+ojos/pesos/face_landmarker.task
+pose_cabeza/pesos/face_landmarker.task
+mirada/pesos/face_landmarker.task
 __pycache__/
