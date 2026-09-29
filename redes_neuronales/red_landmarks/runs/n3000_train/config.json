@@ -1,0 +1,82 @@
+{
+  "mode": "train",
+  "csv": "data_extraction/landmarks_features_clean.csv",
+  "out_dir": "runs/n3000_train",
+  "seed": 42,
+  "verbose": 0,
+  "features": [
+    "left_ear",
+    "right_ear",
+    "mar",
+    "ear_diff",
+    "left_brow_eye",
+    "right_brow_eye",
+    "head_pitch",
+    "head_yaw",
+    "head_roll"
+  ],
+  "label_col": "label",
+  "path_col": "path",
+  "class_names": [
+    "Non Drowsy",
+    "Drowsy"
+  ],
+  "normalize": "zscore",
+  "std_eps": 1e-06,
+  "val_frac": 0.15,
+  "test_frac": 0.15,
+  "split_seed": 42,
+  "max_images": 3000,
+  "group_regex": "^([a-zA-Z]+)\\d+\\.\\w+$",
+  "obligatory_prefix": "obligatory",
+  "hidden_units": [
+    32,
+    16
+  ],
+  "activation": "relu",
+  "dropout": 0.1,
+  "l2": 0.0,
+  "optimizer": "adam",
+  "lr": 0.01,
+  "batch_size": 32,
+  "epochs": 80,
+  "monitor": "val_auc",
+  "monitor_mode": "max",
+  "patience": 10,
+  "reduce_lr_factor": 0.5,
+  "reduce_lr_patience": 4,
+  "min_lr": 1e-06,
+  "threshold": null,
+  "thresholds": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7
+  ],
+  "grid_lrs": [
+    0.01,
+    0.001,
+    0.0001
+  ],
+  "grid_dropouts": [
+    0.1,
+    0.3,
+    0.5
+  ],
+  "grid_l2s": [
+    0.0
+  ],
+  "k": 5,
+  "cv_inner_val_frac": 0.2,
+  "dpi": 150
+}
