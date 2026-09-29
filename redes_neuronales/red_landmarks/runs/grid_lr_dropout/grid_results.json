@@ -1,0 +1,101 @@
+[
+  {
+    "lr": 0.01,
+    "dropout": 0.1,
+    "l2": 0.0,
+    "val_auc": 0.8556742777551724,
+    "test_auc": 0.6707767944936087,
+    "test_f1_best_thr": 0.652542372881356,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5980392156862745,
+    "n_epochs_run": 15
+  },
+  {
+    "lr": 0.01,
+    "dropout": 0.3,
+    "l2": 0.0,
+    "val_auc": 0.8026287990234438,
+    "test_auc": 0.5370698131760079,
+    "test_f1_best_thr": 0.6157158234660925,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5,
+    "n_epochs_run": 19
+  },
+  {
+    "lr": 0.01,
+    "dropout": 0.5,
+    "l2": 0.0,
+    "val_auc": 0.7662710491721181,
+    "test_auc": 0.601339233038348,
+    "test_f1_best_thr": 0.6881028938906752,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5245098039215687,
+    "n_epochs_run": 12
+  },
+  {
+    "lr": 0.001,
+    "dropout": 0.1,
+    "l2": 0.0,
+    "val_auc": 0.7895376224607968,
+    "test_auc": 0.5819311701081613,
+    "test_f1_best_thr": 0.6414141414141414,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5028011204481793,
+    "n_epochs_run": 37
+  },
+  {
+    "lr": 0.001,
+    "dropout": 0.3,
+    "l2": 0.0,
+    "val_auc": 0.7648713574759773,
+    "test_auc": 0.6364523107177975,
+    "test_f1_best_thr": 0.6887052341597796,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5252100840336135,
+    "n_epochs_run": 14
+  },
+  {
+    "lr": 0.001,
+    "dropout": 0.5,
+    "l2": 0.0,
+    "val_auc": 0.7871099251932768,
+    "test_auc": 0.6301769911504425,
+    "test_f1_best_thr": 0.6887052341597796,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5252100840336135,
+    "n_epochs_run": 17
+  },
+  {
+    "lr": 0.0001,
+    "dropout": 0.1,
+    "l2": 0.0,
+    "val_auc": 0.751475007042474,
+    "test_auc": 0.6166981317600786,
+    "test_f1_best_thr": 0.6887052341597796,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5252100840336135,
+    "n_epochs_run": 30
+  },
+  {
+    "lr": 0.0001,
+    "dropout": 0.3,
+    "l2": 0.0,
+    "val_auc": 0.7545952142477073,
+    "test_auc": 0.6288702064896756,
+    "test_f1_best_thr": 0.6887052341597796,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5252100840336135,
+    "n_epochs_run": 50
+  },
+  {
+    "lr": 0.0001,
+    "dropout": 0.5,
+    "l2": 0.0,
+    "val_auc": 0.76537802435131,
+    "test_auc": 0.6341927236971484,
+    "test_f1_best_thr": 0.6887052341597796,
+    "best_thr": 0.05,
+    "test_acc_best_thr": 0.5252100840336135,
+    "n_epochs_run": 33
+  }
+]

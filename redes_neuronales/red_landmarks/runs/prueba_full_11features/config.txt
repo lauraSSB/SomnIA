@@ -1,0 +1,13 @@
+Configuración de la corrida
+============================
+Arquitectura: Dense(32, 16) sobre 11 features (EAR/MAR/pose)
+Features: ['left_ear', 'right_ear', 'avg_ear', 'mar', 'moe', 'ear_diff', 'left_brow_eye', 'right_brow_eye', 'head_pitch', 'head_yaw', 'head_roll']
+Dropout: 0.2
+Batch size: 32
+Épocas (máx): 80
+LR inicial: 0.001
+Paciencia: 10
+Semilla: 42
+n_train=7085 n_val=1431 n_test=1428
+Normalización: z-score con media/std de train (guardadas en feature_mean.npy / feature_std.npy)
+Nota: entrenado sobre landmarks_features_v1_clean.csv, ya filtrado de filas con head_roll implausible (>90°, típicamente oclusión de boca/mentón por manos).

@@ -2,12 +2,23 @@
 
 Cuatro módulos independientes que, a partir de la foto de una cara, extraen las características de la **región de los ojos**, el **contorno de la boca**, la **pose de la cabeza** y la **dirección de la mirada**. Todos usan los puntos faciales de **MediaPipe Face Landmarker** (478 puntos y 52 blendshapes).
 
+Cada módulo está en **su propia carpeta**, con su README:
+
+```
+caracteristicas_faciales/
+├── ojos/          region_ojos.py      + pesos/ (VGG19 + Attention y ViT-B/16)
+├── boca/          contorno_boca.py
+├── pose_cabeza/   pose_cabeza.py
+├── mirada/        direccion_mirada.py
+└── requirements.txt
+```
+
 | Script | Qué hace | ¿Modelo entrenado? |
 |---|---|---|
-| `region_ojos.py` | Localiza los ojos, calcula **EAR** y **eyeBlink**, recorta cada ojo y estima su **grado de cierre** (0 = abierto, 1 = cerrado) | ✅ VGG19 + Attention y ViT-B/16 (pesos en `pesos/`) |
-| `contorno_boca.py` | Localiza la boca y calcula **MAR**, **distancia entre labios** y **jawOpen**; detecta **bostezos**; recorta la boca | ❌ Características geométricas |
-| `pose_cabeza.py` | Estima **pitch** (+ = cabeza hacia abajo), **yaw** (+ = girada a la derecha de la imagen) y **roll** (+ = ladeada en sentido horario); marca **cabeceos** | ❌ Matriz 3D de MediaPipe |
-| `direccion_mirada.py` | Posición del **iris** dentro de cada ojo + blendshapes `eyeLook…` → mirada horizontal/vertical y categoría (centro, izquierda, derecha, arriba, abajo) | ❌ Puntos del iris + blendshapes |
+| `ojos/region_ojos.py` | Localiza los ojos, calcula **EAR** y **eyeBlink**, recorta cada ojo y estima su **grado de cierre** (0 = abierto, 1 = cerrado) | ✅ VGG19 + Attention y ViT-B/16 (pesos en `ojos/pesos/`) |
+| `boca/contorno_boca.py` | Localiza la boca y calcula **MAR**, **distancia entre labios** y **jawOpen**; detecta **bostezos**; recorta la boca | ❌ Características geométricas |
+| `pose_cabeza/pose_cabeza.py` | Estima **pitch** (+ = cabeza hacia abajo), **yaw** (+ = girada a la derecha de la imagen) y **roll** (+ = ladeada en sentido horario); marca **cabeceos** | ❌ Matriz 3D de MediaPipe |
+| `mirada/direccion_mirada.py` | Posición del **iris** dentro de cada ojo + blendshapes `eyeLook…` → mirada horizontal/vertical y categoría (centro, izquierda, derecha, arriba, abajo) | ❌ Puntos del iris + blendshapes |
 
 ## Instalación
 
@@ -21,22 +32,23 @@ Se probó con Python 3.13 y 3.14. El modelo de MediaPipe (`face_landmarker.task`
 
 ```bash
 # Ojos: EAR, eyeBlink y cierre estimado por el modelo
-python region_ojos.py foto.jpg
-python region_ojos.py foto.jpg --modelo ambos --salida foto_ojos.jpg
-python region_ojos.py carpeta_fotos/ --ampliar 4          # caras pequeñas (100x100 px)
+python ojos/region_ojos.py foto.jpg
+python ojos/region_ojos.py foto.jpg --modelo ambos --salida foto_ojos.jpg
+python ojos/region_ojos.py carpeta_fotos/ --ampliar 4          # caras pequeñas (100x100 px)
 
 # Boca: MAR, distancia entre labios, jawOpen y bostezo
-python contorno_boca.py foto.jpg --salida foto_boca.jpg
+python boca/contorno_boca.py foto.jpg --salida foto_boca.jpg
 
 # Pose de la cabeza y dirección de la mirada
-python pose_cabeza.py foto.jpg --salida foto_pose.jpg
-python direccion_mirada.py foto.jpg --salida foto_mirada.jpg
+python pose_cabeza/pose_cabeza.py foto.jpg --salida foto_pose.jpg
+python mirada/direccion_mirada.py foto.jpg --salida foto_mirada.jpg
 ```
 
 Desde Python:
 
 ```python
 import cv2
+import sys; sys.path += ["ojos", "boca"]
 from region_ojos import AnalizadorOjos
 from contorno_boca import AnalizadorBoca
 
@@ -61,7 +73,7 @@ Entrenados en el proyecto SomnIA siguiendo a **Hassan et al. (2025)**, *Real-tim
 | ViT-B/16 | 0,869 | 74,0 % (AUC 0,990) | ~9 ms |
 
 ### Formato de los pesos
-Para que quepan en GitHub, `pesos/*.pt` guardan **solo las capas que se entrenaron**, en media precisión:
+Para que quepan en GitHub, `ojos/pesos/*.pt` guardan **solo las capas que se entrenaron**, en media precisión:
 
 | Archivo | Tamaño | Parámetros entrenados |
 |---|---|---|
