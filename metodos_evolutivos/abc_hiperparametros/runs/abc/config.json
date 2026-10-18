@@ -1,0 +1,19 @@
+{
+  "csv": "../../redes_neuronales/red_landmarks/data_extraction/landmarks_features_clean.csv",
+  "out_dir": "runs/abc",
+  "features": "left_ear,right_ear,mar,ear_diff,left_brow_eye,right_brow_eye",
+  "max_images": 9000,
+  "val_frac": 0.15,
+  "test_frac": 0.15,
+  "split_seed": 42,
+  "colonias": "10,20,30",
+  "limites": "5,10,20",
+  "semillas": "0,1,2",
+  "budget": 150,
+  "epochs": 40,
+  "patience": 6,
+  "batch_size": 128,
+  "threshold_metric": "balanced_accuracy",
+  "min_especificidad": 0.5,
+  "actualizado": "2026-10-17 22:29:58"
+}

@@ -1,0 +1,70 @@
+{
+  "mejor_configuracion_abc": "C30_L20",
+  "hiperparametros_abc": {
+    "lr": 0.00161,
+    "hidden": 23,
+    "dropout": 0.404,
+    "l2": 0.00143
+  },
+  "hiperparametros_rn": {
+    "lr": 0.01,
+    "hidden": 32,
+    "dropout": 0.1,
+    "l2": 0.0
+  },
+  "repeticiones": 5,
+  "resultados": {
+    "RN (lr=0,01; 32-16; dropout 0,1; sin L2)": {
+      "recall_test": {
+        "media": 0.8103703703703704,
+        "desv": 0.041523787949878176
+      },
+      "f1_test": {
+        "media": 0.7102617653131731,
+        "desv": 0.014883094639581882
+      },
+      "precision_test": {
+        "media": 0.633383076102516,
+        "desv": 0.01512598578206707
+      },
+      "especificidad_test": {
+        "media": 0.5294814814814814,
+        "desv": 0.04710645213394298
+      },
+      "accuracy_test": {
+        "media": 0.6699259259259258,
+        "desv": 0.014043631793960374
+      },
+      "auc_test": {
+        "media": 0.743769327846365,
+        "desv": 0.017292503578821623
+      }
+    },
+    "ABC (mejor encontrada)": {
+      "recall_test": {
+        "media": 0.6734814814814815,
+        "desv": 0.1220568128752876
+      },
+      "f1_test": {
+        "media": 0.6751045841399627,
+        "desv": 0.04252898085418912
+      },
+      "precision_test": {
+        "media": 0.7195113140047583,
+        "desv": 0.12064888535538695
+      },
+      "especificidad_test": {
+        "media": 0.6657777777777778,
+        "desv": 0.3168689066128959
+      },
+      "accuracy_test": {
+        "media": 0.6696296296296296,
+        "desv": 0.10580205136987691
+      },
+      "auc_test": {
+        "media": 0.7737415637860081,
+        "desv": 0.08963326574551309
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "csv": "../../redes_neuronales/red_landmarks/data_extraction/landmarks_features_clean.csv",
+  "out_dir": "runs/abc_robusto",
+  "features": "left_ear,right_ear,mar,ear_diff,left_brow_eye,right_brow_eye",
+  "max_images": 9000,
+  "val_frac": 0.15,
+  "test_frac": 0.15,
+  "split_seed": 42,
+  "colonias": "10,20",
+  "limites": "5,10,20",
+  "semillas": "0,1",
+  "budget": 90,
+  "epochs": 40,
+  "patience": 6,
+  "batch_size": 128,
+  "threshold_metric": "balanced_accuracy",
+  "min_especificidad": 0.5,
+  "min_epocas": 10,
+  "semillas_aptitud": "0,1,2",
+  "lambda_desv": 1.0,
+  "lambda_brecha": 0.5,
+  "actualizado": "2026-10-18 07:59:57"
+}

@@ -1,0 +1,44 @@
+{
+  "descripcion": "Red de landmarks de SomnIA con hiperparámetros encontrados por colonia de abejas (ME)",
+  "configuracion_colonia": "C10_L10",
+  "semilla_entrenamiento": 100,
+  "eleccion_semilla": "mejor F1 de Somnoliento en validación entre las semillas del --final",
+  "features_en_orden": [
+    "left_ear",
+    "right_ear",
+    "mar",
+    "ear_diff",
+    "left_brow_eye",
+    "right_brow_eye"
+  ],
+  "normalizacion": "x_norm = (x - feature_mean) / feature_std",
+  "hiperparametros": {
+    "lr": 0.01,
+    "hidden": 57,
+    "dropout": 0.078,
+    "l2": 2.78e-05,
+    "capas": [
+      57,
+      28
+    ]
+  },
+  "epocas": 40,
+  "salida": "probabilidad de Somnoliento (clase 1 = Drowsy)",
+  "umbral": 0.45,
+  "umbral_elegido_con": "balanced_accuracy en validación",
+  "validacion": {
+    "f1": 0.7003257328990228,
+    "recall": 0.6370370370370371,
+    "especificidad": 0.8177777777777778,
+    "auc": 0.774318792866941
+  },
+  "prueba": {
+    "f1": 0.7824967824967825,
+    "recall": 0.9007407407407407,
+    "precision": 0.6916951080773607,
+    "especificidad": 0.5985185185185186,
+    "accuracy": 0.7496296296296296,
+    "auc": 0.8123017832647462
+  },
+  "uso": "m = keras.models.load_model('modelo.keras'); p = m.predict((X - mean) / std); alerta = p >= umbral"
+}
