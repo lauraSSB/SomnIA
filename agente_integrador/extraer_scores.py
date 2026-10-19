@@ -44,7 +44,7 @@ import numpy as np
 import tensorflow as tf
 import torch
 
-RAIZ = pathlib.Path(__file__).resolve().parents[2]
+RAIZ = pathlib.Path(__file__).resolve().parents[1]
 CARACTERISTICAS = RAIZ / "redes_neuronales" / "caracteristicas_faciales"
 LANDMARKS_DIR = RAIZ / "redes_neuronales" / "red_landmarks"
 DATASET_DIR = RAIZ / "dataset"
@@ -162,30 +162,54 @@ def cargar_filas_landmarks(features: list[str]) -> dict[tuple[int, str], dict]:
 def main():
     ap = argparse.ArgumentParser(description="Extrae scores de los 3 agentes sobre val/prueba")
     ap.add_argument("--landmarks-run", default=str(LANDMARKS_DIR / "runs" / "final_32_16_6f_v2"))
+    ap.add_argument("--me-model", default=None,
+                    help="Directorio con modelo landmarks de ME (modelo.keras, modelo_info.json, feature_mean/std.npy). "
+                         "Si se indica, reemplaza al modelo de --landmarks-run.")
     ap.add_argument("--out-csv", default=str(pathlib.Path(__file__).parent / "scores_val_test.csv"))
     args = ap.parse_args()
 
     run_dir = pathlib.Path(args.landmarks_run)
     if not run_dir.is_absolute():
         run_dir = LANDMARKS_DIR / run_dir
-    config = json.loads((run_dir / "config.json").read_text())
-    features_landmarks = config["features"]
-    print(f"Run de landmarks: {run_dir}")
-    print(f"  features ({len(features_landmarks)}): {features_landmarks}")
-    print(f"  hidden_units={config['hidden_units']} dropout={config['dropout']} activation={config['activation']}")
-
     split_personas = json.loads((run_dir / "split_personas.json").read_text())
+
+    if args.me_model:
+        me_dir = pathlib.Path(args.me_model)
+        if not me_dir.is_absolute():
+            me_dir = pathlib.Path(__file__).resolve().parent / me_dir
+        me_info = json.loads((me_dir / "modelo_info.json").read_text())
+        features_landmarks = me_info["features_en_orden"]
+        hp = me_info["hiperparametros"]
+        print(f"Modelo ME: {me_dir}")
+        print(f"  features ({len(features_landmarks)}): {features_landmarks}")
+        print(f"  hiperparámetros: {hp}")
+        # Mismo workaround que el modelo RN original: reconstruir arquitectura
+        # y cargar solo pesos, porque load_model falla por versión de Keras.
+        modelo_landmarks = build_landmarks_model(
+            input_dim=len(features_landmarks),
+            hidden_units=hp["capas"],
+            activation="relu",
+            dropout=hp["dropout"],
+        )
+        modelo_landmarks.load_weights(str(me_dir / "modelo.keras"))
+        feature_mean = np.load(me_dir / "feature_mean.npy")
+        feature_std = np.load(me_dir / "feature_std.npy")
+    else:
+        config = json.loads((run_dir / "config.json").read_text())
+        features_landmarks = config["features"]
+        print(f"Run de landmarks: {run_dir}")
+        print(f"  features ({len(features_landmarks)}): {features_landmarks}")
+        print(f"  hidden_units={config['hidden_units']} dropout={config['dropout']} activation={config['activation']}")
+        modelo_landmarks = build_landmarks_model(
+            input_dim=len(features_landmarks), hidden_units=config["hidden_units"],
+            activation=config["activation"], dropout=config["dropout"],
+        )
+        modelo_landmarks.load_weights(str(run_dir / "best_model.keras"))
+        feature_mean = np.load(run_dir / "feature_mean.npy")
+        feature_std = np.load(run_dir / "feature_std.npy")
 
     filas_por_archivo = cargar_filas_landmarks(features_landmarks)
     print(f"Filas en landmarks_features_clean.csv (con las {len(features_landmarks)} features completas): {len(filas_por_archivo)}")
-
-    modelo_landmarks = build_landmarks_model(
-        input_dim=len(features_landmarks), hidden_units=config["hidden_units"],
-        activation=config["activation"], dropout=config["dropout"],
-    )
-    modelo_landmarks.load_weights(str(run_dir / "best_model.keras"))
-    feature_mean = np.load(run_dir / "feature_mean.npy")
-    feature_std = np.load(run_dir / "feature_std.npy")
 
     print("Cargando modelos de ojos (VGG19+Attention) y boca (ViT-B/16, con el remapeo de pesos)...")
     analizador_ojos = AnalizadorOjos(modelos=("vgg19_attention",))
