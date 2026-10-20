@@ -30,17 +30,38 @@ Diseño de experimentos para mejorar la red **VGG19 + Attention**, que estima el
 
 **Experimento 2:** las reglas no superan a la regresión logística en F1. La red optimizada sí sube la sensibilidad de Drowsy (p < 0,001). Pittsburgh logra un resultado parecido con solo ~3 reglas legibles.
 
+## Experimento 3: ¿agregar la boca ayuda? (`SomnIA_experimento_boca.ipynb`)
+
+**Diseño:** 3 × 3 × 2 casos × 3 repeticiones = **54 ejecuciones**, sin reentrenar redes.
+- **Factor A, información de la boca:** sin boca; boca geométrica (MAR); boca ViT (la apertura que estima el ViT-B/16 entrenado con *jawOpen*, r = 0,84).
+- **Factor B, clasificador:** regresión logística, Michigan o Pittsburgh.
+- **Factor C, red de ojos:** la del paper o la de Luciérnagas.
+- **Entradas de la boca:** cuando hay boca, el clasificador recibe además `z_boca` (calibrada por persona) y la apertura.
+
+| Información de la boca | F1 Drowsy | Sens. Drowsy | Sens. alerta |
+|---|---|---|---|
+| Sin boca (solo ojos) | **73,8 %** | 82,9 % | 58,1 % |
+| Boca geométrica (MAR) | 73,4 % | **85,0 %** | 53,1 % |
+| Boca ViT | 71,6 % | 75,8 % | **64,3 %** |
+
+- La boca **no mejora el F1** (ANOVA de tres factores, p = 0,13).
+- La boca ViT reduce las falsas alarmas, pero **baja la sensibilidad de Drowsy 7,1 puntos** (t pareada, p = 0,007).
+- La causa está en los datos: en el DDD solo 4 de 25 personas bostezan cuando están somnolientas, y ninguna de las 5 de prueba lo hace.
+- Pesos del ViT de la boca: `pesos/boca/vit_b16_boca_pliegue0.pt` (idéntico al de `redes_neuronales/caracteristicas_faciales/boca/pesos/`).
+- Predicciones de la boca por fotograma: `resultados/boca_experimento.csv`, generado con `codigo/predecir_boca.py`.
+
 ## Contenido
 
 ```
 SomnIA_metaheuristicas_colab.ipynb       experimento completo (Colab + GPU), con salidas
 SomnIA_metaheuristicas_resultados.ipynb  análisis: F1/sensibilidad de Drowsy, ANOVA, Tukey, t pareada (no necesita GPU)
+SomnIA_experimento_boca.ipynb            experimento 3: ojos vs. ojos + boca (MAR / ViT) × clasificador × red
 codigo/
   somnia_red.py        VGG19 + Attention completa en GPU, aptitud con caché en Drive
   somnia_meta.py       calibración, Genético, ABC, Luciérnagas, Murciélagos, Michigan y Pittsburgh
   guardar_pesos.py     reentrena y guarda la mejor red de cada método
   empaquetar_imagenes.py / extraer_caracteristicas_vgg19.py   preparación de los recortes de ojos (pliegue 0)
-pesos/                 mejor red de cada método (la de mayor aptitud en validación) + resumen_pesos.csv
+pesos/                 mejor red de ojos de cada método + boca/ (ViT de la boca) (la de mayor aptitud en validación) + resumen_pesos.csv
 resultados/            tablas CSV, figuras, registro de las 303 redes, prueba t, métricas por persona y reglas aprendidas
 ```
 

@@ -308,7 +308,8 @@ class Michigan:
         lo[ni] = hi[ni] = np.nan
         return lo, hi, c
 
-    def fit(self, X, y, pasadas=3, n_muestra=4000):
+    def fit(self, X, y, pasadas=3, n_muestra=4000, nombres=None):
+        self.nombres_ = nombres or COLS
         self.mu_, self.sd_ = X.mean(0), X.std(0) + 1e-9
         self.defecto_ = int(np.bincount(y).argmax())
         X = (X - self.mu_) / self.sd_; d = X.shape[1]
@@ -371,7 +372,7 @@ class Michigan:
 
     def reglas(self, k=8):
         orden = np.argsort(-(self.aptitud() * np.minimum(self.exp, 200)))[:k]
-        return [(texto_regla(self.lo[i] * self.sd_ + self.mu_, self.hi[i] * self.sd_ + self.mu_, self.c[i]),
+        return [(texto_regla(self.lo[i] * self.sd_ + self.mu_, self.hi[i] * self.sd_ + self.mu_, self.c[i], self.nombres_),
                  self.ok[i] / max(self.exp[i], 1), int(self.exp[i])) for i in orden]
 
 
@@ -402,7 +403,8 @@ class Pittsburgh:
     def _apt(self, ind, X, y):
         return balanced_accuracy_score(y, self._pred(ind, X)) - 0.002 * len(ind[2])
 
-    def fit(self, X, y, n_muestra=4000):
+    def fit(self, X, y, n_muestra=4000, nombres=None):
+        self.nombres_ = nombres or COLS
         self.mu_, self.sd_ = X.mean(0), X.std(0) + 1e-9
         X = (X - self.mu_) / self.sd_
         if len(X) > n_muestra:
@@ -448,7 +450,7 @@ class Pittsburgh:
 
     def reglas(self):
         lo, hi, c, defecto = self.mejor_
-        out = [texto_regla(lo[j] * self.sd_ + self.mu_, hi[j] * self.sd_ + self.mu_, c[j]) for j in range(len(c))]
+        out = [texto_regla(lo[j] * self.sd_ + self.mu_, hi[j] * self.sd_ + self.mu_, c[j], self.nombres_) for j in range(len(c))]
         return out + [f"EN OTRO CASO → {'Drowsy' if defecto else 'Alerta'}"]
 
 
