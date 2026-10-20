@@ -1,0 +1,7 @@
+metodo,archivo,MB,semilla,tasa_aprendizaje,neuronas_1,neuronas_2,dropout,cuello_atencion,weight_decay,capas_congeladas,lote,aptitud_val,accuracy_test,f1_test,recall_drowsy_test,f1_test_guardado,recall_drowsy_test_guardado,accuracy_test_guardado
+Abejas (ABC),vgg19_attention_ojos_abejas.pt,0.1,2,0.0003614591324406,39,16,0.096,5,1.968280197600232e-05,16,128,0.8804,0.697,0.726,0.8019,0.726,0.8019,0.697
+Aleatoria,vgg19_attention_ojos_aleatoria.pt,0.1,2,3.252296037176596e-05,51,15,0.226,38,0.0070693195093568,16,32,0.8504,0.5906,0.5596,0.5198,0.5596,0.5198,0.5906
+Genético,vgg19_attention_ojos_genetico.pt,9.3,2,1.5395561319052505e-05,211,57,0.165,6,7.0154456297865286e-06,14,128,0.8872,0.6736,0.7301,0.882,0.7301,0.882,0.6736
+Luciérnagas,vgg19_attention_ojos_luciernagas.pt,13.8,2,1e-05,218,54,0.159,6,3.868234268869949e-06,13,128,0.877,0.7262,0.7598,0.8652,0.7598,0.8652,0.7262
+Murciélagos,vgg19_attention_ojos_murcielagos.pt,13.9,2,1.1771908875198507e-05,316,79,0.245,6,1.383064505033605e-06,13,128,0.8469,0.7527,0.7785,0.8681,0.7785,0.8681,0.7527
+Paper (sin búsqueda),vgg19_attention_ojos_paper.pt,27.8,1,0.0001,512,256,0.5,32,0.0,10,64,0.7668,0.6979,0.7261,0.8001,0.7258,0.799,0.6978

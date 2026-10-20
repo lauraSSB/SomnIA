@@ -1,0 +1,6 @@
+Método,Δ F1 Drowsy (pts),p F1 Drowsy,¿Mejora significativa en F1 Drowsy?,Δ Sens. Drowsy (pts),p Sens. Drowsy,¿Mejora significativa en Sens. Drowsy?
+Aleatoria,-6.0,0.382,No,-5.8,0.665,No
+Genético,3.3,0.165,No,5.9,0.009,Sí
+Abejas (ABC),-0.4,0.45,No,1.2,0.453,No
+Luciérnagas,3.4,0.003,Sí,4.5,0.043,Sí
+Murciélagos,2.1,0.306,No,1.8,0.54,No

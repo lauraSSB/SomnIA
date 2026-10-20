@@ -1,0 +1,7 @@
+Comparación,Métrica,n pares,media paper (%),media optimizado (%),diferencia media (pts),IC 95 % (pts),t,gl,p (una cola),"¿Significativo (α = 0,05)?",pares en que mejora,p Wilcoxon (una cola)
+Genético vs. Paper,F1 Drowsy,15,72.1,77.3,5.22,"[-1.69, 12.14]",1.62,14,0.0638,No,10 de 15,0.1262
+Genético vs. Paper,Sens. Drowsy,15,80.4,86.3,5.97,"[-1.18, 13.13]",1.79,14,0.0476,Sí,8 de 15,0.079
+Genético vs. Paper,Accuracy,15,72.6,75.1,2.49,"[-3.63, 8.62]",0.873,14,0.1986,No,10 de 15,0.1947
+Luciérnagas vs. Paper,F1 Drowsy,15,72.1,77.2,5.07,"[-1.94, 12.08]",1.55,14,0.0717,No,11 de 15,0.0844
+Luciérnagas vs. Paper,Sens. Drowsy,15,80.4,85.3,4.91,"[-2.91, 12.72]",1.347,14,0.0997,No,9 de 15,0.079
+Luciérnagas vs. Paper,Accuracy,15,72.6,75.6,2.99,"[-2.40, 8.37]",1.189,14,0.1271,No,10 de 15,0.1384

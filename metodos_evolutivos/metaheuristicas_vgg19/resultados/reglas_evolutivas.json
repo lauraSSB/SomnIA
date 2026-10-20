@@ -1,0 +1,198 @@
+{
+  "Michigan | red paper": {
+    "metricas_test": {
+      "accuracy": 0.7167,
+      "f1": 0.7529,
+      "recall_drowsy": 0.862,
+      "recall_alerta": 0.5712
+    },
+    "reglas": [
+      {
+        "regla": "SI z_L ∈ [3.49, 8.72] Y z_R ∈ [4.53, 7.26] → Drowsy",
+        "precision": 1.0,
+        "usos": 568
+      },
+      {
+        "regla": "SI z_L ∈ [2.12, 6.36] Y z_R ∈ [6.91, 11.85] Y closure_L ∈ [0.11, 0.26] Y closure_R ∈ [0.04, 0.27] → Drowsy",
+        "precision": 1.0,
+        "usos": 186
+      },
+      {
+        "regla": "SI z_L ∈ [2.12, 6.36] Y z_R ∈ [6.91, 11.85] Y closure_L ∈ [0.11, 0.26] Y closure_R ∈ [0.04, 0.27] → Drowsy",
+        "precision": 1.0,
+        "usos": 184
+      },
+      {
+        "regla": "SI z_R ∈ [4.53, 7.26] → Drowsy",
+        "precision": 0.972,
+        "usos": 848
+      },
+      {
+        "regla": "SI z_L ∈ [2.12, 6.36] Y z_R ∈ [5.85, 8.98] Y closure_L ∈ [0.11, 0.26] → Drowsy",
+        "precision": 0.984,
+        "usos": 184
+      },
+      {
+        "regla": "SI z_L ∈ [3.49, 8.72] → Drowsy",
+        "precision": 0.967,
+        "usos": 1327
+      },
+      {
+        "regla": "SI z_L ∈ [3.49, 8.72] → Drowsy",
+        "precision": 0.967,
+        "usos": 1326
+      },
+      {
+        "regla": "SI z_L ∈ [3.49, 8.72] → Drowsy",
+        "precision": 0.967,
+        "usos": 1321
+      },
+      {
+        "regla": "SI z_L ∈ [3.49, 8.72] → Drowsy",
+        "precision": 0.966,
+        "usos": 1309
+      },
+      {
+        "regla": "SI z_R ∈ [5.85, 8.98] → Drowsy",
+        "precision": 0.963,
+        "usos": 561
+      },
+      {
+        "regla": "SI z_R ∈ [5.85, 8.98] → Drowsy",
+        "precision": 0.962,
+        "usos": 554
+      },
+      {
+        "regla": "SI z_R ∈ [6.91, 11.85] Y closure_L ∈ [0.11, 0.26] Y closure_R ∈ [0.04, 0.27] → Drowsy",
+        "precision": 0.879,
+        "usos": 240
+      },
+      {
+        "regla": "SI z_L ∈ [-0.77, 2.94] Y closure_L ∈ [0.39, 0.47] → Drowsy",
+        "precision": 0.871,
+        "usos": 186
+      },
+      {
+        "regla": "SI z_L ∈ [-0.77, 2.94] Y closure_L ∈ [0.39, 0.47] → Drowsy",
+        "precision": 0.87,
+        "usos": 184
+      },
+      {
+        "regla": "SI z_L ∈ [-0.77, 2.94] Y closure_L ∈ [0.39, 0.47] → Drowsy",
+        "precision": 0.868,
+        "usos": 182
+      }
+    ]
+  },
+  "Pittsburgh | red paper": {
+    "metricas_test": {
+      "accuracy": 0.6863,
+      "f1": 0.7254,
+      "recall_drowsy": 0.8281,
+      "recall_alerta": 0.5441
+    },
+    "reglas": [
+      "SI z_L ∈ [-2.99, 2.04] Y z_R ∈ [-1.42, 1.71] Y closure_L ∈ [-0.10, 0.40] Y closure_R ∈ [-0.13, 0.17] → Alerta",
+      "SI z_L ∈ [-2.24, 3.84] Y z_R ∈ [-1.40, 0.41] Y closure_L ∈ [0.17, 0.29] Y closure_R ∈ [-0.03, 0.43] → Alerta",
+      "EN OTRO CASO → Drowsy"
+    ]
+  },
+  "Michigan | red genetico": {
+    "metricas_test": {
+      "accuracy": 0.7129,
+      "f1": 0.7607,
+      "recall_drowsy": 0.9116,
+      "recall_alerta": 0.5136
+    },
+    "reglas": [
+      {
+        "regla": "SI closure_L ∈ [0.17, 0.21] Y closure_R ∈ [0.20, 0.33] → Drowsy",
+        "precision": 0.875,
+        "usos": 449
+      },
+      {
+        "regla": "SI closure_L ∈ [0.17, 0.21] Y closure_R ∈ [0.20, 0.33] → Drowsy",
+        "precision": 0.875,
+        "usos": 448
+      },
+      {
+        "regla": "SI closure_L ∈ [0.17, 0.21] Y closure_R ∈ [0.20, 0.33] → Drowsy",
+        "precision": 0.875,
+        "usos": 447
+      },
+      {
+        "regla": "SI closure_L ∈ [0.17, 0.21] Y closure_R ∈ [0.20, 0.33] → Drowsy",
+        "precision": 0.874,
+        "usos": 453
+      },
+      {
+        "regla": "SI z_L ∈ [1.06, 3.09] Y closure_L ∈ [0.27, 0.31] → Drowsy",
+        "precision": 0.865,
+        "usos": 267
+      },
+      {
+        "regla": "SI z_L ∈ [1.06, 3.09] Y z_R ∈ [-2.42, 7.58] Y closure_L ∈ [0.27, 0.31] → Drowsy",
+        "precision": 0.864,
+        "usos": 265
+      },
+      {
+        "regla": "SI z_L ∈ [1.06, 3.09] Y z_R ∈ [-2.42, 7.58] Y closure_L ∈ [0.27, 0.31] → Drowsy",
+        "precision": 0.863,
+        "usos": 262
+      },
+      {
+        "regla": "SI z_L ∈ [-1.66, 1.09] Y z_R ∈ [-2.30, 0.66] Y closure_L ∈ [0.05, 0.12] Y closure_R ∈ [0.04, 0.28] → Alerta",
+        "precision": 0.834,
+        "usos": 2084
+      },
+      {
+        "regla": "SI z_L ∈ [-1.66, 1.09] Y z_R ∈ [-2.30, 0.66] Y closure_L ∈ [0.05, 0.12] → Alerta",
+        "precision": 0.831,
+        "usos": 2093
+      },
+      {
+        "regla": "SI z_L ∈ [-1.66, 1.09] Y z_R ∈ [-2.30, 0.66] Y closure_L ∈ [0.05, 0.12] → Alerta",
+        "precision": 0.831,
+        "usos": 2134
+      },
+      {
+        "regla": "SI z_L ∈ [-1.66, 1.09] Y z_R ∈ [-2.30, 0.66] Y closure_L ∈ [0.05, 0.12] → Alerta",
+        "precision": 0.83,
+        "usos": 2104
+      },
+      {
+        "regla": "SI z_L ∈ [-2.00, 0.68] Y z_R ∈ [-2.30, 0.66] Y closure_L ∈ [0.05, 0.12] → Alerta",
+        "precision": 0.828,
+        "usos": 2076
+      },
+      {
+        "regla": "SI closure_L ∈ [0.28, 0.36] → Drowsy",
+        "precision": 0.806,
+        "usos": 941
+      },
+      {
+        "regla": "SI closure_L ∈ [0.28, 0.36] → Drowsy",
+        "precision": 0.805,
+        "usos": 932
+      },
+      {
+        "regla": "SI closure_L ∈ [0.28, 0.36] → Drowsy",
+        "precision": 0.804,
+        "usos": 930
+      }
+    ]
+  },
+  "Pittsburgh | red genetico": {
+    "metricas_test": {
+      "accuracy": 0.6872,
+      "f1": 0.7492,
+      "recall_drowsy": 0.9335,
+      "recall_alerta": 0.4403
+    },
+    "reglas": [
+      "SI z_L ∈ [-1.28, 0.97] Y z_R ∈ [-1.55, 0.62] Y closure_R ∈ [-0.05, 0.23] → Alerta",
+      "SI z_L ∈ [-2.36, -0.39] Y closure_L ∈ [0.05, 0.12] → Alerta",
+      "EN OTRO CASO → Drowsy"
+    ]
+  }
+}
