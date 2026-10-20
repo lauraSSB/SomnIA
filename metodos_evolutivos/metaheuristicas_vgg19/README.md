@@ -1,6 +1,6 @@
 # Metaheurísticas y reglas evolutivas sobre VGG19 + Attention (ojos)
 
-Diseño de experimentos para mejorar la red **VGG19 + Attention**, que estima el cierre de cada ojo y luego, con la calibración por persona y un clasificador final, decide **Drowsy / Non Drowsy** por fotograma. Se ejecutó en **Google Colab Pro+** (GPU NVIDIA RTX PRO 6000 Blackwell, 96 GB). En total se entrenaron 303 redes en ~2,5 h (~21 unidades de cómputo).
+Diseño de experimentos para mejorar la red **VGG19 + Attention**, que estima el cierre de cada ojo y luego, con la calibración por persona y un clasificador final, decide **Drowsy / Non Drowsy** por fotograma. Se ejecutó en **Google Colab Pro+** (GPU NVIDIA RTX PRO 6000 Blackwell, 96 GB). En total hubo 303 evaluaciones de aptitud, que corresponden a 228 redes distintas entrenadas, en ~2,5 h (~21 unidades de cómputo).
 
 ## Experimentos
 
@@ -10,7 +10,7 @@ Diseño de experimentos para mejorar la red **VGG19 + Attention**, que estima el
 | Individuo | 8 genes reales en [0, 1] → tasa de aprendizaje, neuronas capa 1, proporción capa 2, dropout, cuello de la atención, weight decay, convoluciones congeladas, lote | Regla = intervalo [mín, máx] o `#` por variable (z_L, z_R, cierre_L, cierre_R) + clase. Michigan: individuo = 1 regla. Pittsburgh: individuo = lista de reglas + clase por defecto |
 | Aptitud | Accuracy de somnolencia en **validación** (5 personas) tras entrenar la red completa | Michigan: precisión⁵ de cada regla. Pittsburgh: accuracy balanceada − 0,002 × n.º de reglas |
 | Respuestas | **F1 y sensibilidad de Drowsy en prueba** (5 personas nunca vistas), sensibilidad de alerta, accuracy | Ídem + número de reglas |
-| Ejecuciones | 6 métodos × 3 repeticiones; 20 redes por corrida, población 6 → 303 redes | 3 × 2 × 3 repeticiones |
+| Ejecuciones | 6 métodos × 3 repeticiones; 20 evaluaciones por corrida, población 6 → 303 evaluaciones = **228 redes distintas** (las configuraciones repetidas se toman de la caché) | 3 × 2 × 3 repeticiones |
 | Análisis | ANOVA de un factor, Tukey HSD, t de Welch y **t de Student pareada** frente al paper | ANOVA de dos factores con interacción |
 
 ## Resultados principales (prueba, media ± desviación de 3 repeticiones)
@@ -62,7 +62,7 @@ codigo/
   guardar_pesos.py     reentrena y guarda la mejor red de cada método
   empaquetar_imagenes.py / extraer_caracteristicas_vgg19.py   preparación de los recortes de ojos (pliegue 0)
 pesos/                 mejor red de ojos de cada método + boca/ (ViT de la boca) (la de mayor aptitud en validación) + resumen_pesos.csv
-resultados/            tablas CSV, figuras, registro de las 303 redes, prueba t, métricas por persona y reglas aprendidas
+resultados/            tablas CSV, figuras, registro de las 303 evaluaciones, prueba t, métricas por persona y reglas aprendidas
 ```
 
 ## Pesos
