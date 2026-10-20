@@ -1,0 +1,49 @@
+{
+  "semilla": 1,
+  "formula": "add(cierre_ojo, add(mul(mul(0.025, landmarks_prob), landmarks_prob), sig(apertura_boca)))",
+  "size": 10,
+  "depth": 4,
+  "fitness_loo_val": 0.90957,
+  "val": {
+    "threshold": 0.65,
+    "accuracy": 0.8155792276964048,
+    "precision": 0.7639198218262806,
+    "recall": 0.9134487350199734,
+    "f1": 0.8320194057004245,
+    "auc": 0.8484931764305381,
+    "tp": 686,
+    "fp": 212,
+    "fn": 65,
+    "tn": 539
+  },
+  "test": {
+    "threshold": 0.65,
+    "accuracy": 0.7124749833222148,
+    "precision": 0.6728462377317339,
+    "recall": 0.8248663101604278,
+    "f1": 0.7411411411411412,
+    "auc": 0.8085476049758967,
+    "tp": 617,
+    "fp": 300,
+    "fn": 131,
+    "tn": 451
+  },
+  "parametros": {
+    "scores_csv": "/Users/aureliano/Developer/SomnIA/agente_integrador/scores_val_test_me.csv",
+    "semillas": [
+      0,
+      1,
+      42
+    ],
+    "poblacion": 200,
+    "generaciones": 60,
+    "elite": 2,
+    "torneo": 5,
+    "max_prof": 6,
+    "p_cruce": 0.7,
+    "p_mut_sub": 0.2,
+    "parsimonia": 0.001,
+    "diversidad": 0.04,
+    "out_dir": "/Users/aureliano/Developer/SomnIA/metodos_evolutivos/gp_integrador/runs"
+  }
+}
