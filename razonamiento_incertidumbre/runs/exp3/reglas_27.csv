@@ -1,0 +1,28 @@
+regla,p_ojos,p_boca,p_landmarks,nivel_base,sube_boca,nivel,etiqueta_salida,singleton
+1,Bajo,Bajo,Bajo,0,0,0,Despierto,0.0
+2,Bajo,Bajo,Medio,1,0,1,Bajo,0.25
+3,Bajo,Bajo,Alto,2,0,2,Medio,0.5
+4,Bajo,Medio,Bajo,0,0,0,Despierto,0.0
+5,Bajo,Medio,Medio,1,0,1,Bajo,0.25
+6,Bajo,Medio,Alto,2,0,2,Medio,0.5
+7,Bajo,Alto,Bajo,0,1,1,Bajo,0.25
+8,Bajo,Alto,Medio,1,1,2,Medio,0.5
+9,Bajo,Alto,Alto,2,1,3,Alto,0.75
+10,Medio,Bajo,Bajo,1,0,1,Bajo,0.25
+11,Medio,Bajo,Medio,2,0,2,Medio,0.5
+12,Medio,Bajo,Alto,3,0,3,Alto,0.75
+13,Medio,Medio,Bajo,1,0,1,Bajo,0.25
+14,Medio,Medio,Medio,2,0,2,Medio,0.5
+15,Medio,Medio,Alto,3,0,3,Alto,0.75
+16,Medio,Alto,Bajo,1,1,2,Medio,0.5
+17,Medio,Alto,Medio,2,1,3,Alto,0.75
+18,Medio,Alto,Alto,3,1,4,Muy alto,1.0
+19,Alto,Bajo,Bajo,2,0,2,Medio,0.5
+20,Alto,Bajo,Medio,3,0,3,Alto,0.75
+21,Alto,Bajo,Alto,4,0,4,Muy alto,1.0
+22,Alto,Medio,Bajo,2,0,2,Medio,0.5
+23,Alto,Medio,Medio,3,0,3,Alto,0.75
+24,Alto,Medio,Alto,4,0,4,Muy alto,1.0
+25,Alto,Alto,Bajo,2,1,3,Alto,0.75
+26,Alto,Alto,Medio,3,1,4,Muy alto,1.0
+27,Alto,Alto,Alto,4,0,4,Muy alto,1.0

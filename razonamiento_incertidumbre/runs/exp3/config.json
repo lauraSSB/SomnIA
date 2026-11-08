@@ -1,0 +1,116 @@
+{
+  "opcion_antifuga": "B (solo validación, LOPO sobre p/q/s/t; prueba abierta una vez)",
+  "personas": {
+    "val": [
+      "p",
+      "q",
+      "s",
+      "t"
+    ],
+    "test": [
+      "h",
+      "j",
+      "r",
+      "x"
+    ]
+  },
+  "fuentes": [
+    "anfis",
+    "rn",
+    "me"
+  ],
+  "integradores": [
+    "I0",
+    "I1",
+    "I1max",
+    "I2",
+    "I3abc",
+    "I3pso"
+  ],
+  "semillas": [
+    100,
+    101,
+    102,
+    103,
+    104
+  ],
+  "rejilla_umbral": [
+    0.01,
+    0.99,
+    0.01
+  ],
+  "epocas_candidatas": [
+    3,
+    6,
+    12,
+    25,
+    50
+  ],
+  "lr_I2": 0.01,
+  "presupuesto_I3": 3000,
+  "recall_referencia_I0": {
+    "anfis": 0.9693741677762983,
+    "rn": 0.8135818908122503,
+    "me": 0.7376830892143809
+  },
+  "fis_final": {
+    "estrechez": {
+      "p_ojos": {
+        "separaciones": [
+          0.086867,
+          0.16922
+        ],
+        "estrecho": false
+      },
+      "p_boca": {
+        "separaciones": [
+          0.003196,
+          0.023187
+        ],
+        "estrecho": true
+      },
+      "p_landmarks": {
+        "separaciones": [
+          0.219908,
+          0.230094
+        ],
+        "estrecho": false
+      }
+    },
+    "cortes": {
+      "p_ojos": [
+        0.046899371594190595,
+        0.1337665691971779,
+        0.30298657715320587
+      ],
+      "p_boca": [
+        0.0,
+        0.0031960895285010338,
+        0.02638280894607306
+      ],
+      "p_landmarks": [
+        0.18755595512577136,
+        0.40746424342740045,
+        0.6375584146775065
+      ]
+    },
+    "meseta": 0.3,
+    "agregacion": "promedio",
+    "singletons": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "etiquetas_salida": [
+      "Despierto",
+      "Bajo",
+      "Medio",
+      "Alto",
+      "Muy alto"
+    ],
+    "n_reglas": 27,
+    "operadores": "Y = min, implicación = min, agregación = promedio ponderado sobre las 27 reglas, salida = promedio ponderado de singletons"
+  }
+}
