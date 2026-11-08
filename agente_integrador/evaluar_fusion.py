@@ -130,7 +130,13 @@ def barrido_pesos(X_val, y_val, paso=0.05, criterio="auc"):
 
 
 def main():
-    datos = cargar(AQUI / "scores_val_test.csv")
+    import argparse
+    ap = argparse.ArgumentParser(description="Compara reglas de fusión sobre los scores de los 3 agentes")
+    ap.add_argument("--scores-csv", default=str(AQUI / "scores_val_test.csv"))
+    ap.add_argument("--out-json", default=str(AQUI / "resultados_fusion.json"))
+    args = ap.parse_args()
+
+    datos = cargar(pathlib.Path(args.scores_csv))
     X_val, y_val = datos["val"]
     X_test, y_test = datos["test"]
     print(f"val: n={len(y_val)} ({(y_val==0).sum()} despierto / {(y_val==1).sum()} dormido)")
@@ -217,7 +223,7 @@ def main():
     print(f"  umbral(val)={thr:.2f}  AUC test={auc_test:.3f}  acc={m['accuracy']:.3f} prec={m['precision']:.3f} "
           f"recall={m['recall']:.3f} f1={m['f1']:.3f}")
 
-    out_path = AQUI / "resultados_fusion.json"
+    out_path = pathlib.Path(args.out_json)
     out_path.write_text(json.dumps(resultado, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nGuardado en {out_path}")
 

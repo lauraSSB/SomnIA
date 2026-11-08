@@ -1,0 +1,1 @@
+max2(apertura_boca, add(cierre_ojo, sig(mul(landmarks_prob, 0.073))))

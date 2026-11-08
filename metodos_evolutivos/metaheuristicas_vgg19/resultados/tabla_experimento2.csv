@@ -1,0 +1,7 @@
+clasificador,red,accuracy (%),f1 (%),recall_drowsy (%),recall_alerta (%),Reglas
+Michigan,Optimizada (Genético),64.4 ± 9.7,72.3 ± 5.6,91.4 ± 4.3,37.4 ± 20.8,119.0
+Michigan,Original (paper),69.6 ± 9.8,72.8 ± 6.2,79.7 ± 1.6,59.4 ± 19.8,120.0
+Pittsburgh,Optimizada (Genético),70.9 ± 2.0,75.3 ± 2.1,89.1 ± 4.2,52.6 ± 1.6,2.7
+Pittsburgh,Original (paper),70.3 ± 0.7,73.7 ± 0.3,83.0 ± 1.0,57.6 ± 2.3,2.7
+Regresión logística,Optimizada (Genético),72.7 ± 4.6,76.2 ± 2.7,86.7 ± 1.5,58.7 ± 10.7,
+Regresión logística,Original (paper),69.8 ± 0.9,72.8 ± 0.6,80.8 ± 0.7,58.9 ± 2.0,

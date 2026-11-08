@@ -1,0 +1,1 @@
+add(sig(mul(landmarks_prob, add(mul(landmarks_prob, cierre_ojo), apertura_boca))), cierre_ojo)
