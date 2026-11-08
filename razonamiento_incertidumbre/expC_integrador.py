@@ -1,6 +1,6 @@
 """
 expC_integrador.py — Exp. C: integrador híbrido (esquema del paper) sobre los puntajes de los agentes.
-Datos: redes_neuronales/agente_integrador/scores_val_test.csv (3.001 filas: validación 1.502, prueba 1.499).
+Datos: agente_integrador/scores_val_test.csv (3.001 filas: validación 1.502, prueba 1.499).
 Los puntajes de landmarks de ese archivo son los de RN; aquí se REGENERAN los de ME (modelo final de ME aplicado a las
 mismas imágenes, emparejadas por nombre de archivo y clase con landmarks_features_clean.csv) y se prueban ambos.
 
@@ -16,7 +16,9 @@ import ri_common as C
 
 OUT = C.RUNS / "expC"
 OUT.mkdir(parents=True, exist_ok=True)
-SCORES = C.ROOT / "redes_neuronales" / "agente_integrador" / "scores_val_test.csv"
+SCORES = C.ROOT / "agente_integrador" / "scores_val_test.csv"   # el integrador se movió a la raíz del repositorio
+if not SCORES.exists():
+    SCORES = C.ROOT / "redes_neuronales" / "agente_integrador" / "scores_val_test.csv"
 ME_DIR = C.ROOT / "metodos_evolutivos" / "abc_hiperparametros" / "runs" / "abc_robusto" / "final" / "modelo_landmarks_me"
 DIR = {"cierre_ojo": 1, "ear": 0, "mar": 1, "landmarks_rn": 1, "landmarks_me": 1, "apertura_boca": 1}
 EPOCAS = [3, 6, 12, 25, 50]
