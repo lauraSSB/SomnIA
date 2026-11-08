@@ -1,0 +1,8 @@
+{
+  "n_conjuntos": 3,
+  "forma": "tri",
+  "init": "tabla",
+  "f1_val_media": 0.7674597645557815,
+  "recall_val_media": 0.9622716049382716,
+  "criterio": "mayor F1 de Somnoliento medio en validación (15 corridas por configuración)"
+}

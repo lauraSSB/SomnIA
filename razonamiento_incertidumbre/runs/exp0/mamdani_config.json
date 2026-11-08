@@ -1,0 +1,23 @@
+{
+  "picos_ear_recalibrado": [
+    0.12987533807754517,
+    0.23979677259922028,
+    0.37034903168678285
+  ],
+  "picos_mar_recalibrado": [
+    0.005204282468184829,
+    0.05801433443557467,
+    0.1108243864029645
+  ],
+  "picos_ear_literal": [
+    0.2,
+    0.5,
+    0.8
+  ],
+  "picos_mar_literal": [
+    5,
+    15,
+    25
+  ],
+  "operadores": "Y=min, implicaci\u00f3n=min, agregaci\u00f3n=max, centroide (101->201 puntos)"
+}

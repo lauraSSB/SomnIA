@@ -1,0 +1,21 @@
+# Caches
+__pycache__/
+*.pyc
+
+# Presentaciones y respaldos (no van al repositorio)
+*.pptx
+runs/ppt_respaldo/
+
+# Fotos de rostros usadas para revisar etiquetas (no se publican) y copias de datos
+runs/etiquetas/hojas/
+runs/etiquetas/release/
+runs/eda/revision/
+runs/figuras/montaje_*.png
+runs/datos_split.npz
+
+# Scripts de una sola vez que arman la presentación (dependen de rutas locales)
+actualizar_ppt.py
+agregar_ppt_v2.py
+ppt_exp2_paper2.py
+ppt_equipo.py
+solo_un_experimento.py

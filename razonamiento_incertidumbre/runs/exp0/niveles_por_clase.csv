@@ -1,0 +1,13 @@
+modelo,clase,nivel,fraccion
+Mamdani literal (paper),0,bajo,0.0
+Mamdani literal (paper),0,medio,0.37777777777777777
+Mamdani literal (paper),0,alto,0.6222222222222222
+Mamdani literal (paper),1,bajo,0.0
+Mamdani literal (paper),1,medio,0.0
+Mamdani literal (paper),1,alto,1.0
+Mamdani recalibrado,0,bajo,0.8281481481481482
+Mamdani recalibrado,0,medio,0.16296296296296298
+Mamdani recalibrado,0,alto,0.008888888888888889
+Mamdani recalibrado,1,bajo,0.4562962962962963
+Mamdani recalibrado,1,medio,0.38222222222222224
+Mamdani recalibrado,1,alto,0.16148148148148148

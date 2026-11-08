@@ -1,0 +1,71 @@
+{
+ "descripcion": "ANFIS base de SomnIA (agente de landmarks): Sugeno de orden 0, EAR y MAR, 3 conjuntos trapezoidales por entrada, 9 reglas, consecuentes iniciados con la tabla del paper (Sohrabinezhad et al., 2026) y entrenados con gradiente.",
+ "entradas": [
+  "ear",
+  "mar"
+ ],
+ "ear": "(left_ear + right_ear) / 2",
+ "mar": "mar (columna mar del CSV de landmarks)",
+ "normalizacion": "z = (x - media) / desv",
+ "media": [
+  0.2457800656557083,
+  0.026924047619104385
+ ],
+ "desv": [
+  0.08825501799583435,
+  0.05313822999596596
+ ],
+ "conjuntos": {
+  "ear": {
+   "centro": [
+    -1.3713637590408325,
+    -0.02992016077041626,
+    1.4647057056427002
+   ],
+   "ancho_izq": [
+    1.2454978227615356,
+    1.3056855201721191,
+    1.4205135107040405
+   ],
+   "ancho_der": [
+    1.1759238243103027,
+    1.5722962617874146,
+    1.4792616367340088
+   ]
+  },
+  "mar": {
+   "centro": [
+    -0.478087455034256,
+    0.5164295434951782,
+    1.5438719987869263
+   ],
+   "ancho_izq": [
+    0.9938240647315979,
+    1.0617867708206177,
+    1.0260149240493774
+   ],
+   "ancho_der": [
+    0.9325305223464966,
+    0.9540511965751648,
+    0.9938241243362427
+   ]
+  }
+ },
+ "orden_reglas": "indice = i_ear * 3 + i_mar; i_ear: 0 bajo, 1 medio, 2 alto; i_mar: 0 bajo, 1 medio, 2 alto",
+ "consecuentes_logit": [
+  2.894758939743042,
+  0.89180588722229,
+  1.4317179918289185,
+  -0.41818276047706604,
+  0.034182995557785034,
+  0.39286530017852783,
+  -2.8754568099975586,
+  -1.3208914995193481,
+  -0.7827532291412354
+ ],
+ "salida": "P(somnoliento) = sum(w_normalizado * sigmoid(consecuente))",
+ "umbral": 0.35,
+ "umbral_criterio": "exactitud balanceada en validacion (personas p, q, s, t)",
+ "semilla_entrenamiento": 100,
+ "entrenamiento": "6.300 fotos (16 grupos + obligatory), parada temprana con la perdida de validacion"
+}
