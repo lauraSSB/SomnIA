@@ -1,0 +1,8 @@
+metodo,Paper: accuracy (%),Paper: AUC,Paper: n.º caract.,Réplica DDD: accuracy (%),Réplica DDD: AUC,Réplica DDD: n.º caract.
+Todas,88.39,0.71,36,92.5 ± 0.3,0.97,69.0
+Fisher,89.73,0.79,6,72.4 ± 0.8,0.79,3.2
+Prueba t,90.21,0.85,5,80.9 ± 0.4,0.88,10.8
+Correlación,96.47,0.95,25,80.7 ± 0.4,0.88,13.6
+Información mutua,88.12,0.78,6,80.9 ± 1.0,0.89,12.0
+FUFES (difuso fijo),96.41,0.95,10,80.2 ± 0.4,0.87,10.0
+ANFIS + PSO,98.12,0.97,5,92.6 ± 1.8,0.97,43.0

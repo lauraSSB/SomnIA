@@ -1,0 +1,2012 @@
+{
+ "descripcion": "Pesos del ANFIS (Takagi-Sugeno, 4 entradas, 3 gaussianas por entrada, 81 reglas) entrenados con PSO. Cada entrada es un índice de filtro normalizado a [0,1]; la salida es el grado de importancia de la característica (se usa si > 0,5).",
+ "reglas_antecedentes": [
+  [
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   1
+  ],
+  [
+   0,
+   0,
+   0,
+   2
+  ],
+  [
+   0,
+   0,
+   1,
+   0
+  ],
+  [
+   0,
+   0,
+   1,
+   1
+  ],
+  [
+   0,
+   0,
+   1,
+   2
+  ],
+  [
+   0,
+   0,
+   2,
+   0
+  ],
+  [
+   0,
+   0,
+   2,
+   1
+  ],
+  [
+   0,
+   0,
+   2,
+   2
+  ],
+  [
+   0,
+   1,
+   0,
+   0
+  ],
+  [
+   0,
+   1,
+   0,
+   1
+  ],
+  [
+   0,
+   1,
+   0,
+   2
+  ],
+  [
+   0,
+   1,
+   1,
+   0
+  ],
+  [
+   0,
+   1,
+   1,
+   1
+  ],
+  [
+   0,
+   1,
+   1,
+   2
+  ],
+  [
+   0,
+   1,
+   2,
+   0
+  ],
+  [
+   0,
+   1,
+   2,
+   1
+  ],
+  [
+   0,
+   1,
+   2,
+   2
+  ],
+  [
+   0,
+   2,
+   0,
+   0
+  ],
+  [
+   0,
+   2,
+   0,
+   1
+  ],
+  [
+   0,
+   2,
+   0,
+   2
+  ],
+  [
+   0,
+   2,
+   1,
+   0
+  ],
+  [
+   0,
+   2,
+   1,
+   1
+  ],
+  [
+   0,
+   2,
+   1,
+   2
+  ],
+  [
+   0,
+   2,
+   2,
+   0
+  ],
+  [
+   0,
+   2,
+   2,
+   1
+  ],
+  [
+   0,
+   2,
+   2,
+   2
+  ],
+  [
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   1,
+   0,
+   0,
+   1
+  ],
+  [
+   1,
+   0,
+   0,
+   2
+  ],
+  [
+   1,
+   0,
+   1,
+   0
+  ],
+  [
+   1,
+   0,
+   1,
+   1
+  ],
+  [
+   1,
+   0,
+   1,
+   2
+  ],
+  [
+   1,
+   0,
+   2,
+   0
+  ],
+  [
+   1,
+   0,
+   2,
+   1
+  ],
+  [
+   1,
+   0,
+   2,
+   2
+  ],
+  [
+   1,
+   1,
+   0,
+   0
+  ],
+  [
+   1,
+   1,
+   0,
+   1
+  ],
+  [
+   1,
+   1,
+   0,
+   2
+  ],
+  [
+   1,
+   1,
+   1,
+   0
+  ],
+  [
+   1,
+   1,
+   1,
+   1
+  ],
+  [
+   1,
+   1,
+   1,
+   2
+  ],
+  [
+   1,
+   1,
+   2,
+   0
+  ],
+  [
+   1,
+   1,
+   2,
+   1
+  ],
+  [
+   1,
+   1,
+   2,
+   2
+  ],
+  [
+   1,
+   2,
+   0,
+   0
+  ],
+  [
+   1,
+   2,
+   0,
+   1
+  ],
+  [
+   1,
+   2,
+   0,
+   2
+  ],
+  [
+   1,
+   2,
+   1,
+   0
+  ],
+  [
+   1,
+   2,
+   1,
+   1
+  ],
+  [
+   1,
+   2,
+   1,
+   2
+  ],
+  [
+   1,
+   2,
+   2,
+   0
+  ],
+  [
+   1,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   2,
+   2,
+   2
+  ],
+  [
+   2,
+   0,
+   0,
+   0
+  ],
+  [
+   2,
+   0,
+   0,
+   1
+  ],
+  [
+   2,
+   0,
+   0,
+   2
+  ],
+  [
+   2,
+   0,
+   1,
+   0
+  ],
+  [
+   2,
+   0,
+   1,
+   1
+  ],
+  [
+   2,
+   0,
+   1,
+   2
+  ],
+  [
+   2,
+   0,
+   2,
+   0
+  ],
+  [
+   2,
+   0,
+   2,
+   1
+  ],
+  [
+   2,
+   0,
+   2,
+   2
+  ],
+  [
+   2,
+   1,
+   0,
+   0
+  ],
+  [
+   2,
+   1,
+   0,
+   1
+  ],
+  [
+   2,
+   1,
+   0,
+   2
+  ],
+  [
+   2,
+   1,
+   1,
+   0
+  ],
+  [
+   2,
+   1,
+   1,
+   1
+  ],
+  [
+   2,
+   1,
+   1,
+   2
+  ],
+  [
+   2,
+   1,
+   2,
+   0
+  ],
+  [
+   2,
+   1,
+   2,
+   1
+  ],
+  [
+   2,
+   1,
+   2,
+   2
+  ],
+  [
+   2,
+   2,
+   0,
+   0
+  ],
+  [
+   2,
+   2,
+   0,
+   1
+  ],
+  [
+   2,
+   2,
+   0,
+   2
+  ],
+  [
+   2,
+   2,
+   1,
+   0
+  ],
+  [
+   2,
+   2,
+   1,
+   1
+  ],
+  [
+   2,
+   2,
+   1,
+   2
+  ],
+  [
+   2,
+   2,
+   2,
+   0
+  ],
+  [
+   2,
+   2,
+   2,
+   1
+  ],
+  [
+   2,
+   2,
+   2,
+   2
+  ]
+ ],
+ "reglas_consecuentes": [
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  0.5,
+  0.0,
+  0.5,
+  0.5,
+  0.0,
+  0.0,
+  0.5,
+  0.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  1.0,
+  0.0,
+  0.0,
+  0.5,
+  0.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  1.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  1.0,
+  0.5,
+  1.0,
+  1.0,
+  0.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  1.0,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  0.5,
+  1.0,
+  0.5,
+  1.0,
+  1.0,
+  0.5,
+  0.5,
+  1.0,
+  0.5,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0
+ ],
+ "mf_iniciales": {
+  "centros_c": [
+   [
+    0.0,
+    0.5,
+    1.0
+   ],
+   [
+    0.0,
+    0.5,
+    1.0
+   ],
+   [
+    0.0,
+    0.5,
+    1.0
+   ],
+   [
+    0.0,
+    0.5,
+    1.0
+   ]
+  ],
+  "anchos_s": [
+   [
+    0.2,
+    0.2,
+    0.2
+   ],
+   [
+    0.2,
+    0.2,
+    0.2
+   ],
+   [
+    0.2,
+    0.2,
+    0.2
+   ],
+   [
+    0.2,
+    0.2,
+    0.2
+   ]
+  ]
+ },
+ "pso": {
+  "particulas": 50,
+  "iteraciones": 30,
+  "w": 0.95,
+  "c1": 2,
+  "c2": 2
+ },
+ "pesos_por_pliegue": {
+  "Aleatoria + global | pliegue 0": {
+   "centros_c": [
+    [
+     0.2345055957656096,
+     0.3279214705820217,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.9952990555863713,
+     1.0
+    ],
+    [
+     0.0,
+     1.0,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.05,
+     0.46370013431277307,
+     0.25737125116061643
+    ],
+    [
+     0.5,
+     0.18640277608343764,
+     0.5
+    ],
+    [
+     0.06005365820213757,
+     0.46061461353291105,
+     0.27091767174085984
+    ],
+    [
+     0.05,
+     0.05763631901178866,
+     0.30473025196931813
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.9178333333333333,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_jaw_open",
+    "x_cabeza_yaw",
+    "x_cabeza_roll",
+    "x_mirada_v_L",
+    "x_mirada_iris_x_R",
+    "x_mirada_v_R",
+    "x_mirada_v",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browInnerUp",
+    "x_gesto_browOuterUpLeft",
+    "x_gesto_browOuterUpRight",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeLookDownLeft",
+    "x_gesto_eyeLookDownRight",
+    "x_gesto_eyeLookInLeft",
+    "x_gesto_eyeLookOutRight",
+    "x_gesto_eyeLookUpRight",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawLeft",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthPressRight",
+    "x_gesto_mouthPucker",
+    "x_gesto_mouthRollLower",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthShrugUpper",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthSmileRight"
+   ],
+   "metricas_prueba": {
+    "f1": 0.9359990535904412,
+    "recall_drowsy": 0.9242990654205607,
+    "recall_alerta": 0.9441872427983539,
+    "accuracy": 0.933765915768854,
+    "auc": 0.9759392667589707
+   }
+  },
+  "Aleatoria + global | pliegue 1": {
+   "centros_c": [
+    [
+     0.0,
+     0.7389176092216149,
+     1.0
+    ],
+    [
+     0.5649688857116728,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.4268942622267123,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.29151827372152866,
+     0.22613772829936846,
+     0.5
+    ],
+    [
+     0.05,
+     0.15549586537446153,
+     0.5
+    ],
+    [
+     0.14,
+     0.3264864166942453,
+     0.3111127079449435
+    ],
+    [
+     0.10678266092124362,
+     0.1212534106171086,
+     0.28645176941190353
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.9261666666666667,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_jaw_open",
+    "x_cabeza_pitch",
+    "x_cabeza_yaw",
+    "x_cabeza_roll",
+    "x_mirada_iris_x_R",
+    "x_mirada_v_R",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browInnerUp",
+    "x_gesto_browOuterUpLeft",
+    "x_gesto_browOuterUpRight",
+    "x_gesto_cheekPuff",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeLookOutRight",
+    "x_gesto_eyeLookUpRight",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawOpen",
+    "x_gesto_jawRight",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthLowerDownLeft",
+    "x_gesto_mouthLowerDownRight",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthPressRight",
+    "x_gesto_mouthPucker",
+    "x_gesto_mouthRollLower",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthShrugUpper",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthSmileRight",
+    "x_gesto_mouthUpperUpLeft",
+    "x_gesto_mouthUpperUpRight",
+    "x_gesto_noseSneerRight"
+   ],
+   "metricas_prueba": {
+    "f1": 0.9412735849056604,
+    "recall_drowsy": 0.9324766355140187,
+    "recall_alerta": 0.946231026498585,
+    "accuracy": 0.9390228970246113,
+    "auc": 0.9790688588128651
+   }
+  },
+  "Aleatoria + global | pliegue 2": {
+   "centros_c": [
+    [
+     0.0,
+     0.6566680920038478,
+     0.7040297756402168
+    ],
+    [
+     0.0,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.7845870256041988
+    ],
+    [
+     0.0,
+     1.0,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.05,
+     0.5,
+     0.5
+    ],
+    [
+     0.05,
+     0.2541677461561016,
+     0.5
+    ],
+    [
+     0.05,
+     0.5,
+     0.5
+    ],
+    [
+     0.5,
+     0.3905752466438771,
+     0.45422230734640706
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.8895,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_jaw_open",
+    "x_cabeza_yaw",
+    "x_cabeza_roll",
+    "x_mirada_iris_x_L",
+    "x_mirada_h_L",
+    "x_mirada_v_L",
+    "x_mirada_iris_x_R",
+    "x_mirada_v_R",
+    "x_mirada_h",
+    "x_mirada_v",
+    "x_gesto_browDownRight",
+    "x_gesto_cheekPuff",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_cheekSquintRight",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeLookDownLeft",
+    "x_gesto_eyeLookDownRight",
+    "x_gesto_eyeLookInLeft",
+    "x_gesto_eyeLookInRight",
+    "x_gesto_eyeLookOutRight",
+    "x_gesto_eyeLookUpLeft",
+    "x_gesto_eyeLookUpRight",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawLeft",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthPressRight",
+    "x_gesto_mouthPucker",
+    "x_gesto_mouthRollLower",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthSmileRight",
+    "x_gesto_mouthStretchLeft",
+    "x_gesto_mouthStretchRight",
+    "x_gesto_mouthUpperUpRight",
+    "x_gesto_noseSneerLeft",
+    "x_gesto_noseSneerRight"
+   ],
+   "metricas_prueba": {
+    "f1": 0.8987630599255434,
+    "recall_drowsy": 0.8742990654205608,
+    "recall_alerta": 0.9215333161821456,
+    "accuracy": 0.8967797232766009,
+    "auc": 0.9536366128167462
+   }
+  },
+  "Aleatoria + global | pliegue 3": {
+   "centros_c": [
+    [
+     0.4144992693840194,
+     0.6594905286929836,
+     1.0
+    ],
+    [
+     0.0,
+     0.36834606162651323,
+     0.3866780559069556
+    ],
+    [
+     0.0,
+     0.20371826423739467,
+     0.7052571796686342
+    ],
+    [
+     0.0,
+     0.7333514110131336,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.05,
+     0.10438092258540164,
+     0.32828679001162214
+    ],
+    [
+     0.5,
+     0.5,
+     0.3820495252210045
+    ],
+    [
+     0.4329870938006448,
+     0.05,
+     0.05
+    ],
+    [
+     0.05,
+     0.3361960393673547,
+     0.12174384249823966
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.9286666666666666,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_ear_L",
+    "x_boca_dist_labios",
+    "x_boca_jaw_open",
+    "x_cabeza_pitch",
+    "x_cabeza_yaw",
+    "x_cabeza_roll",
+    "x_mirada_iris_x_R",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browInnerUp",
+    "x_gesto_browOuterUpLeft",
+    "x_gesto_browOuterUpRight",
+    "x_gesto_eyeLookDownRight",
+    "x_gesto_eyeLookInRight",
+    "x_gesto_eyeLookOutRight",
+    "x_gesto_eyeLookUpLeft",
+    "x_gesto_eyeLookUpRight",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawLeft",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthLowerDownLeft",
+    "x_gesto_mouthLowerDownRight",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthPressRight",
+    "x_gesto_mouthPucker",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthShrugUpper",
+    "x_gesto_mouthStretchLeft",
+    "x_gesto_mouthUpperUpLeft",
+    "x_gesto_noseSneerLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.9431123648330982,
+    "recall_drowsy": 0.9373831775700935,
+    "recall_alerta": 0.9444301517880114,
+    "accuracy": 0.9407371127709073,
+    "auc": 0.9802311924002607
+   }
+  },
+  "Aleatoria + global | pliegue 4": {
+   "centros_c": [
+    [
+     0.0,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.05904329157774671,
+     0.30831946307747676
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.31663152962921526,
+     0.28850807059098316,
+     0.05
+    ],
+    [
+     0.05,
+     0.05,
+     0.5
+    ],
+    [
+     0.36736236362217045,
+     0.4371397603992713,
+     0.5
+    ],
+    [
+     0.05,
+     0.05,
+     0.1809096061689124
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.9028333333333334,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_mar",
+    "x_boca_jaw_open",
+    "x_cabeza_yaw",
+    "x_cabeza_roll",
+    "x_mirada_h_L",
+    "x_mirada_v_L",
+    "x_mirada_iris_x_R",
+    "x_mirada_v_R",
+    "x_mirada_v",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browOuterUpLeft",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeLookDownLeft",
+    "x_gesto_eyeLookDownRight",
+    "x_gesto_eyeLookInLeft",
+    "x_gesto_eyeLookOutRight",
+    "x_gesto_eyeLookUpLeft",
+    "x_gesto_eyeLookUpRight",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthLowerDownLeft",
+    "x_gesto_mouthLowerDownRight",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthPressRight",
+    "x_gesto_mouthPucker",
+    "x_gesto_mouthRollLower",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthSmileRight",
+    "x_gesto_mouthUpperUpRight",
+    "x_gesto_noseSneerLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.9231500178168428,
+    "recall_drowsy": 0.9081561112409442,
+    "recall_alerta": 0.9346707818930041,
+    "accuracy": 0.9207787437247459,
+    "auc": 0.9685689850999761
+   }
+  },
+  "Persona + calibrada | pliegue 0": {
+   "centros_c": [
+    [
+     0.0,
+     0.6181805525364633,
+     0.9713312479386641
+    ],
+    [
+     0.0,
+     0.8,
+     1.0
+    ],
+    [
+     0.0,
+     0.6324302995698579,
+     1.0
+    ],
+    [
+     0.0,
+     0.35553223560347114,
+     0.8344836401076142
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.15342033028702423,
+     0.2628220441138804,
+     0.13788361504427638
+    ],
+    [
+     0.17748777481167208,
+     0.34591169655395754,
+     0.06767283792789597
+    ],
+    [
+     0.15440829607040907,
+     0.05,
+     0.2814102569944894
+    ],
+    [
+     0.40327146618641063,
+     0.2664905327487766,
+     0.361838310299523
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.889,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_jaw_open",
+    "x_mirada_v_R",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browInnerUp",
+    "x_gesto_browOuterUpRight",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthSmileRight",
+    "x_gesto_mouthStretchLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.8064345991561181,
+    "recall_drowsy": 0.7444011684518014,
+    "recall_alerta": 0.828688524590164,
+    "accuracy": 0.7758094074526573,
+    "auc": 0.8530852435072709
+   }
+  },
+  "Persona + calibrada | pliegue 1": {
+   "centros_c": [
+    [
+     0.03227501450541618,
+     0.632339075921194,
+     1.0
+    ],
+    [
+     0.22003986795426891,
+     0.7276860850275934,
+     1.0
+    ],
+    [
+     0.3773187017759542,
+     0.5633428818352461,
+     0.5744000094005851
+    ],
+    [
+     0.07656906393912982,
+     0.5873039393348513,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.16890617603253028,
+     0.05,
+     0.12525289621486965
+    ],
+    [
+     0.07011870637911133,
+     0.23230284244032356,
+     0.14276290559694688
+    ],
+    [
+     0.20217688975883508,
+     0.050905423831985125,
+     0.2359749189554141
+    ],
+    [
+     0.05,
+     0.23034898828431327,
+     0.15483956313001396
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.8393764231914521,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_R",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browInnerUp",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthPressLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.4892399891037864,
+    "recall_drowsy": 0.34685206643491695,
+    "recall_alerta": 0.9274447949526814,
+    "accuracy": 0.6341463414634146,
+    "auc": 0.7505280850309426
+   }
+  },
+  "Persona + calibrada | pliegue 2": {
+   "centros_c": [
+    [
+     0.0,
+     0.47262524610054807,
+     1.0
+    ],
+    [
+     0.0,
+     0.700727140838831,
+     1.0
+    ],
+    [
+     0.0,
+     0.5349362288906503,
+     0.5443517448788264
+    ],
+    [
+     0.0,
+     0.033185944377340945,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.1420556154311023,
+     0.3876296722442136,
+     0.05
+    ],
+    [
+     0.05,
+     0.38370898978549123,
+     0.05
+    ],
+    [
+     0.26440418768121254,
+     0.18223161611572214,
+     0.4015408199906205
+    ],
+    [
+     0.28332106057514567,
+     0.3004047024566727,
+     0.20829706145455568
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.7993333333333333,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_jaw_open",
+    "x_cabeza_yaw",
+    "x_gesto_browDownLeft",
+    "x_gesto_browDownRight",
+    "x_gesto_browInnerUp",
+    "x_gesto_browOuterUpRight",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthDimpleLeft",
+    "x_gesto_mouthPressLeft",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthShrugUpper",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthSmileRight",
+    "x_gesto_mouthUpperUpLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.6528557042152209,
+    "recall_drowsy": 0.5039982230119947,
+    "recall_alerta": 0.9579439252336449,
+    "accuracy": 0.725233432020041,
+    "auc": 0.9285898894364706
+   }
+  },
+  "Persona + calibrada | pliegue 3": {
+   "centros_c": [
+    [
+     0.2773105481959086,
+     0.4269036665647985,
+     1.0
+    ],
+    [
+     0.0,
+     0.5690597921530456,
+     0.6945225534781468
+    ],
+    [
+     0.0,
+     0.9488226250448498,
+     1.0
+    ],
+    [
+     0.13020904874751843,
+     0.42700922239666983,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.24994138043717917,
+     0.24836736186481834,
+     0.25585796822548684
+    ],
+    [
+     0.13710587375582933,
+     0.4085981721470513,
+     0.26637968572494947
+    ],
+    [
+     0.18088109128516977,
+     0.1706261409011069,
+     0.18203890812123483
+    ],
+    [
+     0.48346757522911715,
+     0.05905393660002032,
+     0.14793838065249867
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.8215,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_R",
+    "x_cabeza_yaw",
+    "x_gesto_browDownLeft",
+    "x_gesto_browInnerUp",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_mouthDimpleLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.8477522748879532,
+    "recall_drowsy": 0.9734872114784778,
+    "recall_alerta": 0.5754098360655737,
+    "accuracy": 0.8014523556500177,
+    "auc": 0.9014720094494956
+   }
+  },
+  "Persona + calibrada | pliegue 4": {
+   "centros_c": [
+    [
+     0.1654430017013891,
+     0.19358661073857575,
+     0.9655104283651861
+    ],
+    [
+     0.0,
+     0.6339761368124726,
+     1.0
+    ],
+    [
+     0.0,
+     0.385827159225952,
+     0.9846250986632883
+    ],
+    [
+     0.0,
+     0.2223475863720233,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.2219944422102993,
+     0.05481168004408763,
+     0.3168929405291611
+    ],
+    [
+     0.2772580822546969,
+     0.27080808322130845,
+     0.45729938495200356
+    ],
+    [
+     0.2760617401486605,
+     0.05,
+     0.05
+    ],
+    [
+     0.05,
+     0.22856369606014254,
+     0.14604547821116737
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.8748333333333334,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_boca_jaw_open",
+    "x_gesto_browDownLeft",
+    "x_gesto_browInnerUp",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthRollLower",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthShrugUpper",
+    "x_gesto_noseSneerRight"
+   ],
+   "metricas_prueba": {
+    "f1": 0.7671050883486117,
+    "recall_drowsy": 0.6553916004540296,
+    "recall_alerta": 0.9497218656397091,
+    "accuracy": 0.806917061350369,
+    "auc": 0.9067706640983012
+   }
+  },
+  "Persona + global | pliegue 0": {
+   "centros_c": [
+    [
+     0.1594861511316628,
+     0.4601423533697432,
+     0.940892254458087
+    ],
+    [
+     0.0,
+     0.6384523352564525,
+     1.0
+    ],
+    [
+     0.0,
+     0.42639825853342656,
+     1.0
+    ],
+    [
+     0.5733184446038486,
+     0.5878643749402801,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.4360897758078133,
+     0.5,
+     0.05
+    ],
+    [
+     0.05,
+     0.05,
+     0.2014989421519997
+    ],
+    [
+     0.3087154237186531,
+     0.28797720841177415,
+     0.3871478944651555
+    ],
+    [
+     0.22000958822511119,
+     0.05,
+     0.05
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.8485,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_cabeza_yaw",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.6601394849785408,
+    "recall_drowsy": 0.5990749756572541,
+    "recall_alerta": 0.6507874015748032,
+    "accuracy": 0.6188327316486161,
+    "auc": 0.6319057686557437
+   }
+  },
+  "Persona + global | pliegue 1": {
+   "centros_c": [
+    [
+     0.0,
+     0.6323171953521527,
+     1.0
+    ],
+    [
+     0.0,
+     0.6302123316325019,
+     1.0
+    ],
+    [
+     0.0,
+     0.4122634296527994,
+     1.0
+    ],
+    [
+     0.0,
+     0.46334680485183816,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.18557541434102703,
+     0.42632184142298163,
+     0.05
+    ],
+    [
+     0.19564510769789922,
+     0.293273604831865,
+     0.05
+    ],
+    [
+     0.10170246319413914,
+     0.10326374378362184,
+     0.05
+    ],
+    [
+     0.40137876663663014,
+     0.09203349119142547,
+     0.22659967972680317
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.7668384879725086,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight"
+   ],
+   "metricas_prueba": {
+    "f1": 0.6863549357396773,
+    "recall_drowsy": 0.7271147161066048,
+    "recall_alerta": 0.6093990755007704,
+    "accuracy": 0.6681774349083895,
+    "auc": 0.7153480173615885
+   }
+  },
+  "Persona + global | pliegue 2": {
+   "centros_c": [
+    [
+     0.0,
+     0.5974020605916344,
+     1.0
+    ],
+    [
+     0.04518623210490294,
+     0.6536575973514965,
+     0.7020089783631858
+    ],
+    [
+     0.0,
+     0.41247721852575897,
+     0.9977191133875726
+    ],
+    [
+     0.09368357545786431,
+     0.8005286816073481,
+     0.9979757915254374
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.22797934663629277,
+     0.05,
+     0.1531704356846304
+    ],
+    [
+     0.05,
+     0.41,
+     0.23890096922632711
+    ],
+    [
+     0.37832822813202865,
+     0.3840595966701902,
+     0.2133110549635952
+    ],
+    [
+     0.31950447098811985,
+     0.17374715847189018,
+     0.18504550097400874
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.7593333333333333,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeWideRight",
+    "x_gesto_mouthSmileLeft",
+    "x_gesto_mouthStretchRight",
+    "x_gesto_mouthUpperUpLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.4710118833273316,
+    "recall_drowsy": 0.4358063083074189,
+    "recall_alerta": 0.5748121156911865,
+    "accuracy": 0.5044416957157315,
+    "auc": 0.5727868511790757
+   }
+  },
+  "Persona + global | pliegue 3": {
+   "centros_c": [
+    [
+     0.33434164903395425,
+     0.5965240625349437,
+     1.0
+    ],
+    [
+     0.2,
+     0.5098540044458886,
+     0.8912574471970894
+    ],
+    [
+     0.0,
+     0.4387367913480257,
+     1.0
+    ],
+    [
+     0.0,
+     0.7407948579768122,
+     0.7795556810833129
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.08987290219687827,
+     0.2528609737262773,
+     0.2589093957679739
+    ],
+    [
+     0.2710909746142119,
+     0.2628201043206385,
+     0.24033946958464458
+    ],
+    [
+     0.05,
+     0.05,
+     0.3746082659489323
+    ],
+    [
+     0.1690033487113927,
+     0.2584369149123945,
+     0.30753397877502164
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.5811666666666667,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_ojo_ear_L",
+    "x_ojo_ear_R",
+    "x_boca_jaw_open",
+    "x_cabeza_yaw",
+    "x_cabeza_roll",
+    "x_mirada_v_L",
+    "x_mirada_v_R",
+    "x_mirada_v",
+    "x_gesto_browOuterUpLeft",
+    "x_gesto_browOuterUpRight",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeLookDownLeft",
+    "x_gesto_eyeLookDownRight",
+    "x_gesto_eyeLookInRight",
+    "x_gesto_eyeLookUpRight",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeSquintRight",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_jawOpen",
+    "x_gesto_mouthClose",
+    "x_gesto_mouthFunnel",
+    "x_gesto_mouthPressRight",
+    "x_gesto_mouthPucker",
+    "x_gesto_mouthRight",
+    "x_gesto_mouthRollUpper",
+    "x_gesto_mouthSmileRight",
+    "x_gesto_mouthStretchRight",
+    "x_gesto_mouthUpperUpRight",
+    "x_gesto_noseSneerLeft",
+    "x_gesto_noseSneerRight"
+   ],
+   "metricas_prueba": {
+    "f1": 0.6431357978822219,
+    "recall_drowsy": 0.5399251403618216,
+    "recall_alerta": 0.8244094488188977,
+    "accuracy": 0.665680473372781,
+    "auc": 0.7406415628177483
+   }
+  },
+  "Persona + global | pliegue 4": {
+   "centros_c": [
+    [
+     0.4092790112632295,
+     0.5801078152697954,
+     1.0
+    ],
+    [
+     0.4050387949716808,
+     1.0,
+     1.0
+    ],
+    [
+     0.3468630130195966,
+     0.5510343348244292,
+     1.0
+    ],
+    [
+     0.4667842733160691,
+     0.5355801635680146,
+     1.0
+    ]
+   ],
+   "anchos_s": [
+    [
+     0.08099041442711301,
+     0.5,
+     0.3148196887479707
+    ],
+    [
+     0.05,
+     0.2286254389444417,
+     0.05
+    ],
+    [
+     0.05,
+     0.18052564154284007,
+     0.05
+    ],
+    [
+     0.5,
+     0.2744862513110286,
+     0.5
+    ]
+   ],
+   "entradas": [
+    "Fisher",
+    "Correlación",
+    "Prueba t",
+    "Información mutua"
+   ],
+   "funciones": [
+    "Low",
+    "Medium",
+    "High"
+   ],
+   "fitness_validacion": 0.845,
+   "caracteristicas_seleccionadas": [
+    "x_ojo_blink_L",
+    "x_ojo_blink_R",
+    "x_boca_mar",
+    "x_boca_dist_labios",
+    "x_cabeza_roll",
+    "x_gesto_browInnerUp",
+    "x_gesto_cheekSquintLeft",
+    "x_gesto_eyeBlinkLeft",
+    "x_gesto_eyeBlinkRight",
+    "x_gesto_eyeLookInLeft",
+    "x_gesto_eyeLookOutRight",
+    "x_gesto_eyeLookUpLeft",
+    "x_gesto_eyeSquintLeft",
+    "x_gesto_eyeWideLeft",
+    "x_gesto_eyeWideRight",
+    "x_gesto_mouthLowerDownLeft",
+    "x_gesto_mouthLowerDownRight",
+    "x_gesto_mouthShrugLower",
+    "x_gesto_mouthShrugUpper",
+    "x_gesto_noseSneerLeft"
+   ],
+   "metricas_prueba": {
+    "f1": 0.604,
+    "recall_drowsy": 0.7198637911464245,
+    "recall_alerta": 0.38751571009635527,
+    "accuracy": 0.5470094781566619,
+    "auc": 0.6305508412717962
+   }
+  }
+ }
+}
