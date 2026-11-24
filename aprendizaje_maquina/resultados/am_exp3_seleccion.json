@@ -1,0 +1,106 @@
+{
+  "fecha": "2026-11-23T16:16:25",
+  "am_ml": {
+    "metodo": "RF",
+    "conjunto": "3p",
+    "regimen": "limpio",
+    "f1_val": 0.8111413367657982,
+    "f1_val_desv": 0.0818332814448622
+  },
+  "ranking_ml_validacion": [
+    {
+      "metodo": "RF",
+      "conjunto": "3p",
+      "f1": 0.8111413367657982
+    },
+    {
+      "metodo": "RF",
+      "conjunto": "3p+6m",
+      "f1": 0.7774898397050275
+    },
+    {
+      "metodo": "HGB",
+      "conjunto": "3p+6m",
+      "f1": 0.7488884632631202
+    },
+    {
+      "metodo": "XGB",
+      "conjunto": "3p+6m",
+      "f1": 0.7351894868608004
+    },
+    {
+      "metodo": "SVM",
+      "conjunto": "3p",
+      "f1": 0.7039599568372685
+    },
+    {
+      "metodo": "HGB",
+      "conjunto": "3p",
+      "f1": 0.700593129156989
+    },
+    {
+      "metodo": "XGB",
+      "conjunto": "3p",
+      "f1": 0.6319977043711789
+    },
+    {
+      "metodo": "LR",
+      "conjunto": "3p",
+      "f1": 0.6154526609119586
+    },
+    {
+      "metodo": "SVM",
+      "conjunto": "3p+6m",
+      "f1": 0.6006497061306328
+    },
+    {
+      "metodo": "LR",
+      "conjunto": "3p+6m",
+      "f1": 0.5941906515583926
+    }
+  ],
+  "robustez_top2": [
+    {
+      "metodo": "RF",
+      "conjunto": "3p+6m",
+      "f1_medio_escenarios": 0.7624240894270335
+    },
+    {
+      "metodo": "HGB",
+      "conjunto": "3p+6m",
+      "f1_medio_escenarios": 0.7207042784735234
+    }
+  ],
+  "wilcoxon_am_ml_vs_I0": {
+    "f1": {
+      "dif_media": 0.13755058255097147,
+      "n": 20,
+      "gana_ml": 15,
+      "W": 45.0,
+      "p": 0.023950576782226562
+    },
+    "recall": {
+      "dif_media": 0.21022158379792918,
+      "n": 20,
+      "gana_ml": 17,
+      "W": 12.0,
+      "p": 0.0008323919880098359
+    },
+    "especificidad": {
+      "dif_media": -0.10698316076914324,
+      "n": 20,
+      "gana_ml": 10,
+      "W": 55.0,
+      "p": 0.061907346448402165
+    },
+    "auc": {
+      "dif_media": 0.07623551346975872,
+      "n": 20,
+      "gana_ml": 16,
+      "W": 13.0,
+      "p": 0.0001678466796875
+    }
+  },
+  "n_evaluaciones": 1340,
+  "n_trabajos": 500
+}

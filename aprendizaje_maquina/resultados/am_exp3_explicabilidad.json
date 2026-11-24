@@ -1,0 +1,38 @@
+{
+  "costo": {
+    "AM-I0": {
+      "n": 3,
+      "unidad": "pesos/umbrales",
+      "ms_lote": 0.00019417945208590856,
+      "ms_una": 0.009917013812810183,
+      "hp": {}
+    },
+    "AM-ML": {
+      "n": 8404,
+      "unidad": "nodos",
+      "ms_lote": 0.019282310474334687,
+      "ms_una": 11.85135448758956,
+      "hp": {
+        "max_depth": null,
+        "min_samples_leaf": 50
+      }
+    }
+  },
+  "explicabilidad": {
+    "impureza": {
+      "p_ojos": 0.5099272864453237,
+      "p_boca": 0.1558028954460489,
+      "p_landmarks": 0.3342698181086275
+    },
+    "permutacion_auc": {
+      "p_ojos": 0.29256597816452956,
+      "p_boca": 0.021685973510743903,
+      "p_landmarks": 0.08883326106059355
+    },
+    "pesos_I0": [
+      0.4686,
+      0.1312,
+      0.4002
+    ]
+  }
+}
